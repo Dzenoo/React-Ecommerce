@@ -1,0 +1,11 @@
+.form_card {
+  margin: auto;
+  margin-top: 20px;
+}
+
+.switchbtn {
+  text-decoration: none;
+  cursor: pointer;
+  text-decoration: dotted;
+  color: royalblue;
+}

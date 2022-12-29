@@ -1,0 +1,23 @@
+.main_navigation {
+  height: 4rem;
+  background-color: #fff;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-btn {
+  display: none;
+  font-size: 40px;
+}
+
+@media (max-width: 846px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+  }
+}

@@ -1,0 +1,43 @@
+.item {
+  max-width: 300px;
+  margin: 0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.item .item__image img {
+  width: 100%;
+  height: auto;
+}
+
+.item .item__text h1 {
+  font-size: 24px;
+}
+
+.item .item__desc p {
+  color: grey;
+}
+
+.item .item__footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item .item__footer span {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  gap: 0.3em;
+  color: rgb(105, 158, 255);
+  font-weight: bold;
+}
+
+.stc_red {
+  color: red;
+  text-align: right;
+}
+
+.stc_green {
+  color: rgb(0, 167, 3);
+  text-align: right;
+}

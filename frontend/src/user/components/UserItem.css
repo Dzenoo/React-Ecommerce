@@ -1,0 +1,21 @@
+.profile_bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.profile_bar svg {
+  font-size: 26px;
+}
+
+.profile_bar h2 {
+  font-size: 14px;
+}
+
+@media (max-width: 846px) {
+  .profile_bar svg {
+    font-size: 26px;
+    color: #fff;
+  }
+}
