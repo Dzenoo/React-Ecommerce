@@ -1,0 +1,23 @@
+.cart_wrapper {
+  border-radius: 12px;
+  padding: 40px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  overflow: auto;
+  max-width: 900px;
+  margin: 60px auto;
+}
+
+.desc {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2em;
+}
