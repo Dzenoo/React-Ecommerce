@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Navigation from "./shared/components/Navbar/Navigation";
 import Loader from "./shared/components/UIelements/Loader";
 
+const Cart = React.lazy(() => import("./cart/pages/CartPage"));
 const Products = React.lazy(() => import("./products/pages/Products"));
 const AdminPanel = React.lazy(() => import("./shared/pages/AdminPanel"));
 const Home = React.lazy(() => import("./shared/pages/Home"));
@@ -40,6 +41,7 @@ function App() {
     routes = (
       <>
         <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:pid" element={<ProductDetail />} />
         <Route path="/about" element={<About />} />
