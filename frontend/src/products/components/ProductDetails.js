@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Button from "../../shared/components/Form/Button";
+import { cartActions } from "../../shared/redux/cart-slice";
 
 import "./ProductDetails.css";
 
@@ -33,12 +35,14 @@ const SKU = [
 ];
 
 const ProductDetails = (props) => {
-  const [option, setOption] = useState();
+  const [option, setOption] = useState("S");
 
   const productId = useParams().pid;
   let productContent = props.productsDetail.find((p) => p.id === productId);
 
-  const { title, image, description, price, inStock } = productContent;
+  const { id, title, image, description, price, inStock } = productContent;
+
+  const dispatch = useDispatch();
 
   let isInStock;
   let isAllowedToBuy = false;
@@ -56,6 +60,10 @@ const ProductDetails = (props) => {
       isAllowedToBuy = true;
     }
   }
+
+  const addToCart = () => {
+    dispatch(cartActions.AddToCart({ id, image, title, price, option }));
+  };
 
   return (
     <div className="product_details_container">
@@ -83,7 +91,7 @@ const ProductDetails = (props) => {
         </div>
 
         <div className="content_bottom">
-          {isAllowedToBuy && <Button>Dodaj u korpu</Button>}
+          {isAllowedToBuy && <Button onClick={addToCart}>Dodaj u korpu</Button>}
           <Button>Dodaj na listu zelja</Button>
         </div>
       </div>
