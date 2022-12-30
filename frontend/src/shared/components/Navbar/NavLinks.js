@@ -34,10 +34,12 @@ const NavLinks = (props) => {
         </li>
 
         {/* Authenticated */}
-        {isLoggedIn && (
+            {isLoggedIn && (
           <li className="cart_bar">
-            <AiOutlineShoppingCart />
-            <span>2</span>
+            <Link to="/cart" style={{ textDecoration: "none" }}>
+              <AiOutlineShoppingCart />
+            </Link>
+            <span>{totalQty}</span>
           </li>
         )}
 
