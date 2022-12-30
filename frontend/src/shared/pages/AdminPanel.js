@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
+import { AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
+import { AiOutlineFolderAdd } from "react-icons/ai";
 
 import Button from "../components/Form/Button";
 import Modal from "../components/UIelements/Modal";
@@ -59,6 +62,7 @@ const AdminPanel = (props) => {
           <div className="flex">
             <h1>Artikli</h1>
             <Button action to="/admin/new">
+              <AiOutlineFolderAdd />
               Dodaj Artikal
             </Button>
           </div>
@@ -92,9 +96,13 @@ const AdminPanel = (props) => {
                 </div>
 
                 <div className="btns">
-                  <Button to={`/admin/${product.id}`}>Edit</Button>
+                  <Button to={`/admin/${product.id}`}>
+                    <AiFillEdit />
+                    Izmeni
+                  </Button>
                   <Button danger onClick={openErrorModal}>
-                    Delete
+                    <AiFillDelete />
+                    Izbrisi
                   </Button>
                 </div>
               </div>
@@ -113,6 +121,21 @@ const AdminPanel = (props) => {
                 <h1>{user.title}</h1>
               </div>
             ))}
+          </div>
+
+          <div className="flex">
+            <h1>Porudzbine</h1>
+          </div>
+          <div className="orders_section">
+            <div className="item">
+              <h1>John</h1>
+              <h1>Doe</h1>
+              <address>Neka adresa</address>
+              ||
+              <img src={Slika} />
+              <h1>Adidas Hero</h1>
+              <h1>2000 DIN</h1>
+            </div>
           </div>
         </div>
       </div>
