@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Navigation from "./shared/components/Navbar/Navigation";
 import Loader from "./shared/components/UIelements/Loader";
 
+const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
 const Cart = React.lazy(() => import("./cart/pages/CartPage"));
 const Products = React.lazy(() => import("./products/pages/Products"));
 const AdminPanel = React.lazy(() => import("./shared/pages/AdminPanel"));
@@ -23,7 +24,13 @@ const ProductDetail = React.lazy(() =>
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const cartItems = useSelector((state) => state.cart.items);
   const isAdmin = true;
+  let isCartEmpty = true;
+
+  if (cartItems.length === 0) {
+    isCartEmpty = false;
+  }
 
   let routes;
   if (!isLoggedIn) {
@@ -42,6 +49,10 @@ function App() {
       <>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/cart/checkout"
+          element={isCartEmpty && isLoggedIn ? <Checkout /> : <h1>404</h1>}
+        />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:pid" element={<ProductDetail />} />
         <Route path="/about" element={<About />} />
