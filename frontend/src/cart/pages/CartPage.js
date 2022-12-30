@@ -7,6 +7,7 @@ import CartItem from "../components/CartItem";
 
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart.items);
+  const subTotal = useSelector((state) => state.cart.subTotal);
 
   return (
     <div className="cart_wrapper">
@@ -14,8 +15,8 @@ const CartPage = () => {
       {cartItems.length >= 1 && (
         <div className="desc">
           <h1>Opis</h1>
-          <h1>Ukupno</h1>
           <h1>Cena</h1>
+          <h1>{subTotal}</h1>
         </div>
       )}
       <div>
@@ -36,7 +37,7 @@ const CartPage = () => {
       </div>
 
       <div className="actions">
-        <Button to="/">Nastavi placanje</Button>
+        <Button to="/cart/checkout">Nastavi placanje</Button>
         <Button to="/products" inverse>
           Nastavi sa kupovinom
         </Button>
