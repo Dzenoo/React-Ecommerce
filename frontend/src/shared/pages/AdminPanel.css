@@ -2,6 +2,16 @@
   display: flex;
 }
 
+.item {
+  background-color: #fff;
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 33px;
+}
+
 .admin__center {
   background-color: rgb(243, 237, 237);
   width: 100%;
