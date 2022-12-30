@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const CartSlice = createSlice({
   name: "cart",
-  initialState: { items: [], totalQuantity: 0 },
+  initialState: { items: [], totalQuantity: 0, subTotal: 0 },
   reducers: {
     AddToCart(state, action) {
       const newItem = action.payload;
@@ -23,6 +23,11 @@ const CartSlice = createSlice({
         existingItem.quantity++;
         existingItem.totalPrice =
           parseInt(existingItem.totalPrice) + parseInt(newItem.price);
+
+        state.subTotal = state.items.reduce(
+          (acc, item) => acc + item.totalPrice,
+          0
+        );
       }
     },
 
@@ -38,6 +43,11 @@ const CartSlice = createSlice({
         existingItem.totalPrice =
           parseInt(existingItem.totalPrice) - parseInt(existingItem.price);
       }
+
+      state.subTotal = state.items.reduce(
+        (acc, item) => acc + item.totalPrice,
+        0
+      );
     },
   },
 });
