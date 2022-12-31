@@ -1,6 +1,7 @@
 .profile_bar {
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 10px;
   cursor: pointer;
 }
@@ -18,4 +19,32 @@
     font-size: 26px;
     color: #fff;
   }
+}
+
+.drop__menu {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  margin-top: 53px;
+  transition: all 0.3s ease-in;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  z-index: 20;
+  position: absolute;
+}
+
+.drop__menu li a {
+  color: #303030;
+  font-size: 16px;
+}
+
+.profile_desc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  position: relative;
 }
