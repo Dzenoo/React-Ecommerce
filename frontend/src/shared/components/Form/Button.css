@@ -1,18 +1,23 @@
 .button {
-  padding: 1em 3em;
+  padding: 1.3em 3em;
   border: none;
-  border-radius: 12px;
-  background-color: #314657;
+  background-color: black;
   color: #fff !important;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
 }
 
 .button:hover {
-  background-color: #395e7d;
-  transition: 0.3s;
+  background-color: rgb(48, 47, 47);
+  transition: 0.5 !important;
   color: #fff !important;
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
 }
 
 .button--action {
