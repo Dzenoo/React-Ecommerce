@@ -15,7 +15,7 @@
 
 .cart_item .cart_item_description h1 {
   font-size: 20px;
-  color: royalblue;
+  color: black;
 }
 
 .cart_item .size {
@@ -29,7 +29,7 @@
 
 .cart_item .actions button {
   padding: 0 20px;
-  background-color: rgb(4, 19, 64);
+  background-color: black;
   border: none;
   cursor: pointer;
   color: #fff;
@@ -38,7 +38,7 @@
 }
 
 .cart_item .actions button:nth-child(1) {
-  background-color: rgb(4, 19, 64);
+  background-color: black;
   border: none;
   cursor: pointer;
   color: #fff;
