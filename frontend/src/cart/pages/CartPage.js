@@ -16,7 +16,6 @@ const CartPage = () => {
         <div className="desc">
           <h1>Opis</h1>
           <h1>Cena</h1>
-          <h1>{subTotal}</h1>
         </div>
       )}
       <div>
@@ -37,7 +36,9 @@ const CartPage = () => {
       </div>
 
       <div className="actions">
-        <Button to="/cart/checkout">Nastavi placanje</Button>
+        {cartItems.length >= 1 && (
+          <Button to="/cart/checkout">Nastavi placanje</Button>
+        )}
         <Button to="/products" inverse>
           Nastavi sa kupovinom
         </Button>
