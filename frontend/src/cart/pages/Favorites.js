@@ -13,6 +13,9 @@ const Favorites = () => {
   return (
     <>
       <div>
+        <div className="center">
+          <h1>Lista zelja</h1>
+        </div>
         {favItems.length === 0 && (
           <Card className="card">
             <h1>Lista zelja je prazna</h1>
