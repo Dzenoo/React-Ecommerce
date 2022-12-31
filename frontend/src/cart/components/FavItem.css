@@ -1,0 +1,34 @@
+.fav_wrapper {
+  margin: auto;
+  max-width: 800px;
+  margin-top: 30px;
+}
+
+.fav_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 2px solid rgb(208, 206, 206);
+  padding-bottom: 20px;
+}
+
+.fav_item img {
+  width: 100px;
+  object-fit: cover;
+  height: auto;
+}
+
+.fav_item .fav_item_description h1 {
+  font-size: 20px;
+  color: #034efd;
+}
+
+.fav_item .fav_item_description p {
+  font-size: 14px;
+  color: #92949b;
+}
+
+.fav_item .fav_actions button {
+  padding: 16px;
+}
