@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Button from "../../shared/components/Form/Button";
 import { cartActions } from "../../shared/redux/cart-slice";
+import { FavoriteActions } from "../../shared/redux/favorite-slice";
 
 import "./ProductDetails.css";
 
@@ -43,6 +45,7 @@ const ProductDetails = (props) => {
   const { id, title, image, description, price, inStock } = productContent;
 
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   let isInStock;
   let isAllowedToBuy = false;
@@ -63,6 +66,12 @@ const ProductDetails = (props) => {
 
   const addToCart = () => {
     dispatch(cartActions.AddToCart({ id, image, title, price, option }));
+    toast.success("Dodano u korpu!");
+  };
+
+  const addToFavoritesHandler = () => {
+    dispatch(FavoriteActions.AddToFavorite({ id, image, title, description }));
+    toast.success("Dodano u listu zelja!");
   };
 
   return (
@@ -77,24 +86,32 @@ const ProductDetails = (props) => {
           <div style={{ display: "flex", alignItems: "center", gap: "2em" }}>
             <span>{price} DIN</span> |{isInStock}
           </div>
-
           <p>{description}</p>
         </div>
 
+        <h3>Izaberite velicinu:</h3>
         <div className="content_mid">
           <select value={option} onChange={(e) => setOption(e.target.value)}>
-            {SKU.map((size) => (
-              <option>{size.label}</option>
+            {SKU.map((size, index) => (
+              <option key={index}>{size.label}</option>
             ))}
           </select>
           <h1>{option}</h1>
         </div>
 
         <div className="content_bottom">
-          {isAllowedToBuy && <Button onClick={addToCart}>Dodaj u korpu</Button>}
-          <Button>Dodaj na listu zelja</Button>
+          {isAllowedToBuy && isLoggedIn && (
+            <Button onClick={addToCart}>Dodaj u korpu</Button>
+          )}
+
+          {isAllowedToBuy && isLoggedIn && (
+            <Button onClick={addToFavoritesHandler}>
+              Dodaj na listu zelja
+            </Button>
+          )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
