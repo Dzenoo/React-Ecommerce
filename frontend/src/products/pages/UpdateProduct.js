@@ -25,9 +25,28 @@ const DUMMY_PRODUCTS = [
     id: "p2",
     image: Slika,
     title: "Adidas Game ",
-    description: "Neki opis.",
-    price: 1200,
+    description:
+      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
+    price: 2000,
     inStock: "ne",
+  },
+  {
+    id: "p3",
+    image: Slika,
+    title: "Adidas Game ",
+    description:
+      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
+    price: 1000,
+    inStock: "da",
+  },
+  {
+    id: "p4",
+    image: Slika,
+    title: "Adidas Game ",
+    description:
+      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
+    price: 4000,
+    inStock: "da",
   },
 ];
 
