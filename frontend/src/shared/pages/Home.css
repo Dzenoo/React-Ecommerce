@@ -1,0 +1,48 @@
+body {
+  background-color: #fff;
+}
+
+.mainpage {
+  background-image: url("../assets/fashion__2.png");
+  padding: 300px;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.mainpage h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 5em;
+  margin-top: 120px;
+}
+
+.mainpage .ch {
+  color: black;
+}
+
+.bttn-mainpage {
+  padding: 1.9em 6.5em;
+  font-size: 15px;
+  border: none;
+  background-color: #fff;
+  color: black;
+  border-radius: 15px;
+  -webkit-box-shadow: inset -3px -3px 33px -12px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset -3px -3px 33px -12px rgba(0, 0, 0, 0.6);
+  box-shadow: inset -3px -3px 33px -12px rgba(0, 0, 0, 0.6);
+  background-color: rgb(184, 218, 237);
+}
+
+.bttn-mainpage:hover {
+  color: black;
+  background-color: rgb(184, 218, 237);
+  border-radius: 15px;
+  transition: 1s;
+  -webkit-box-shadow: -3px -3px 53px -12px rgba(0, 0, 0, 0.76);
+  -moz-box-shadow: -3px -3px 71px -12px rgba(0, 0, 0, 0.76);
+  box-shadow: -3px -3px 53px -12px rgba(0, 0, 0, 0.76);
+}
