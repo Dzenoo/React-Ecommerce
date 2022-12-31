@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Navigation from "./shared/components/Navbar/Navigation";
 import Loader from "./shared/components/UIelements/Loader";
 
+const Favorites = React.lazy(() => import("./cart/pages/Favorites"));
 const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
 const Cart = React.lazy(() => import("./cart/pages/CartPage"));
 const Products = React.lazy(() => import("./products/pages/Products"));
@@ -49,6 +50,7 @@ function App() {
       <>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route
           path="/cart/checkout"
           element={isCartEmpty && isLoggedIn ? <Checkout /> : <h1>404</h1>}
