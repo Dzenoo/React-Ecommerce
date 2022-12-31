@@ -1,10 +1,18 @@
+.nav {
+  border-bottom: 1px solid black;
+}
+
 .main_navigation {
-  height: 4rem;
+  height: 6rem;
   background-color: #fff;
   padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.main_navigation img {
+  margin-top: 60px;
 }
 
 .menu-btn {
@@ -19,5 +27,9 @@
 
   .nav {
     display: none;
+  }
+  .dzeis {
+    position: relative;
+    left: 9em;
   }
 }
