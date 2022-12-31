@@ -23,12 +23,12 @@ const CartSlice = createSlice({
         existingItem.quantity++;
         existingItem.totalPrice =
           parseInt(existingItem.totalPrice) + parseInt(newItem.price);
-
-        state.subTotal = state.items.reduce(
+      }
+      
+       state.subTotal = state.items.reduce(
           (acc, item) => acc + item.totalPrice,
           0
-        );
-      }
+       );
     },
 
     RemoveFromCart(state, action) {
