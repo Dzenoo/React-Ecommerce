@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const productRoutes = require("./routes/product_routes.js");
@@ -26,4 +27,14 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error" });
 });
 
-app.listen(8000);
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.8suhkcc.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true }
+  )
+  .then((req, res, next) => {
+    app.listen(8000);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
