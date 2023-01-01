@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
 const Product = require("../models/product");
@@ -8,7 +9,7 @@ exports.getProducts = async (req, res, next) => {
   try {
     products = await Product.find();
   } catch (err) {
-    const error = new HttpError("Ne mogu se naci ovi artikli", 500);
+    const error = new HttpError("Ne mogu se pronaci dati artikli", 500);
     return next(error);
   }
 
@@ -22,12 +23,15 @@ exports.getProductById = async (req, res, next) => {
   try {
     product = await Product.findById(productId);
   } catch (err) {
-    const error = new HttpError("Ne moze se naci artikal uspesno", 500);
+    const error = new HttpError("Ne moze se naci dati artikal ", 500);
     return next(error);
   }
 
   if (!product) {
-    const error = new HttpError("Ne moze se naci artikal uspesno", 404);
+    const error = new HttpError(
+      "Ne moze se naci dati artikal, nije kreiran",
+      404
+    );
     return next(error);
   }
 
@@ -37,10 +41,10 @@ exports.getProductById = async (req, res, next) => {
 exports.createProduct = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(new HttpError("Invalid inputs", 422));
+    return next(new HttpError("Nevazeci unosi", 422));
   }
 
-  const { title, description, price, inStock, creator } = req.body;
+  const { title, description, price, inStock } = req.body;
 
   const createdProduct = new Product({
     title,
@@ -48,13 +52,15 @@ exports.createProduct = async (req, res, next) => {
     image: "https://www.djaksport.com/image.aspx?imageId=168883",
     price,
     inStock,
-    creator,
   });
 
   try {
     await createdProduct.save();
   } catch (err) {
-    const error = new HttpError("Kreiranje neuspesno, probaj ponovo", 500);
+    const error = new HttpError(
+      "Kreiranje artikla neuspesno, probajte ponovo",
+      500
+    );
     return next(error);
   }
 
@@ -64,7 +70,7 @@ exports.createProduct = async (req, res, next) => {
 exports.editProduct = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(new HttpError("Invalid inputs", 422));
+    return next(new HttpError("Nevazeci unosi", 422));
   }
 
   const { title, description, price, inStock } = req.body;
@@ -74,7 +80,7 @@ exports.editProduct = async (req, res, next) => {
   try {
     product = await Product.findById(productId);
   } catch (err) {
-    const error = new HttpError("Editovanje neuspesno, probaj ponovo", 500);
+    const error = new HttpError("Izmene neuspesne, probajte ponovo", 500);
     return next(error);
   }
 
@@ -86,7 +92,7 @@ exports.editProduct = async (req, res, next) => {
   try {
     await product.save();
   } catch (err) {
-    const error = new HttpError("Nesto nije u redu", 500);
+    const error = new HttpError("Greska pri uredjivanju artikla", 500);
     return next(error);
   }
 
@@ -100,14 +106,17 @@ exports.deleteProduct = async (req, res, send) => {
   try {
     product = await Product.findById(productId);
   } catch (err) {
-    const error = new HttpError("Brisanje neuspesno, probaj ponovo", 500);
+    const error = new HttpError(
+      "Greska pri brisanju artikla, probajte ponovo",
+      500
+    );
     return next(error);
   }
 
   try {
     await product.remove();
   } catch (err) {
-    const error = new HttpError("Nesto nije u redu", 500);
+    const error = new HttpError("Nije moguce izbrisati artikal", 500);
     return next(error);
   }
 
