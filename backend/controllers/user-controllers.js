@@ -1,65 +1,85 @@
 const { validationResult } = require("express-validator");
+
 const HttpError = require("../models/http-error");
+const User = require("../models/user");
 
-let DUMMY_USERS = [
-  {
-    id: "u1",
-    email: "dg@gmail.com",
-    name: "Dzenis",
-    password: "123123",
-    isAdmin: true,
-  },
+exports.getUsers = async (req, res, next) => {
+  // Find user without password
+  let users;
 
-  {
-    id: "u2",
-    email: "dsdg@gmail.com",
-    name: "Cima",
-    password: "123123",
-    isAdmin: false,
-  },
-];
+  try {
+    users = await User.find({}, "-password");
+  } catch (err) {
+    const error = new HttpError("Greska pri nalazenju korisnika ", 500);
+    return next(error);
+  }
 
-exports.getUsers = (req, res, next) => {
-  res.json({ DUMMY_USERS });
+  res.json({ users: users.map((user) => user.toObject({ getters: true })) });
 };
 
-exports.signup = (req, res, next) => {
+exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(
-      new HttpError("Invalid inputs passed, please check your data.", 422)
-    );
+    return next(new HttpError("Nevazeci unosi su prazni", 422));
   }
 
   const { name, email, password, isAdmin } = req.body;
 
-  const createdUser = {
-    id: Math.random().toString(),
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Registrovanje neuspesno", 500);
+    return next(error);
+  }
+
+  if (existingUser) {
+    const error = new HttpError("Korisnik je vec kreiran ", 422);
+    return next(error);
+  }
+
+  const createdUser = new User({
     name,
     email,
     password,
-    isAdmin: isAdmin || false,
-  };
+    isAdmin,
+  });
 
-  DUMMY_USERS.push(createdUser);
+  try {
+    await createdUser.save();
+  } catch (err) {
+    const error = new HttpError(
+      "Registrovanje neuspesno, probajte ponovo",
+      500
+    );
+    return next(error);
+  }
 
-  res.status(201).json({ createdUser });
+  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
-      new HttpError("Invalid email or password , please check your data.", 422)
+      new HttpError("Netacni mail ili lozinka , proverite svoje podatke", 422)
     );
   }
 
   const { email, password } = req.body;
 
-  const identifiedUser = DUMMY_USERS.find((u) => u.email === email);
-  if (!identifiedUser || identifiedUser.password !== password) {
-    throw new HttpError("User se ne moze identifikovati greska");
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email: email });
+  } catch (err) {
+    const error = new HttpError("Ulogovanje neuspesno", 500);
+    return next(error);
   }
 
-  res.json({ message: "Ulogovan si" });
+  if (!existingUser || existingUser.password !== password) {
+    const error = new HttpError("Ulogovanje neuspesno, netacni podaci", 500);
+    return next(error);
+  }
+
+  res.json({ message: "Uspesno Ulogovani" });
 };
