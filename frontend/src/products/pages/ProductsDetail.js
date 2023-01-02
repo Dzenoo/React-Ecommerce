@@ -1,50 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import ErrorModal from "../../shared/components/UIelements/ErrorModal";
+import Loader from "../../shared/components/UIelements/Loader";
 import ProductDetails from "../components/ProductDetails";
-
-import Slika from "../../shared/assets/sweater.png";
-const DUMMY_PRODUCTS = [
-  {
-    id: "p1",
-    image: Slika,
-    title: "Adidas Game",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 1600,
-    inStock: "da",
-  },
-
-  {
-    id: "p2",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 2000,
-    inStock: "ne",
-  },
-  {
-    id: "p3",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 1000,
-    inStock: "da",
-  },
-  {
-    id: "p4",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 4000,
-    inStock: "da",
-  },
-];
+import { useParams } from "react-router-dom";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 const ProductsDetail = () => {
-  return <ProductDetails productsDetail={DUMMY_PRODUCTS} />;
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [loadedProduct, setLoadedProduct] = useState([]);
+  const productId = useParams().pid;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:8000/api/products/${productId}`
+        );
+        setLoadedProduct(responseData.product);
+      } catch (err) {}
+    };
+
+    fetchProducts();
+  }, [sendRequest]);
+
+  return (
+    <>
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <Loader asOverlay />}
+      <ProductDetails productDetail={loadedProduct} />
+    </>
+  );
 };
 
 export default ProductsDetail;
