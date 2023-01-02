@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 
@@ -18,17 +18,17 @@ const NavLinks = (props) => {
       <ul className="menu">
         {/* Always Reachable */}
         <li>
-          <Link to="/">Pocetna</Link>
+          <NavLink to="/">Pocetna</NavLink>
         </li>
 
         <li>
-          <Link to="/products">Artikli</Link>
+          <NavLink to="/products">Artikli</NavLink>
         </li>
 
         {/* Authenticated */}
         {isLoggedIn && (
           <li className="bar">
-            <Link to="/cart" style={{ textDecoration: "none" }}>
+            <NavLink to="/cart" style={{ textDecoration: "none" }}>
               <AiOutlineShoppingCart />
             </Link>
             <span>{totalQty}</span>
@@ -37,7 +37,7 @@ const NavLinks = (props) => {
 
         {isLoggedIn && (
           <li className="bar">
-            <Link to="/favorites" style={{ textDecoration: "none" }}>
+            <NavLink to="/favorites" style={{ textDecoration: "none" }}>
               <AiFillStar />
             </Link>
           </li>
@@ -49,7 +49,7 @@ const NavLinks = (props) => {
 
         {isLoggedIn && (
           <li>
-            <Link to="/admin">Admin</Link>
+            <NavLink to="/admin">Admin</Link>
           </li>
         )}
 
