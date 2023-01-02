@@ -10,7 +10,7 @@ const Favorites = React.lazy(() => import("./cart/pages/Favorites"));
 const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
 const Cart = React.lazy(() => import("./cart/pages/CartPage"));
 const Products = React.lazy(() => import("./products/pages/Products"));
-const AdminPanel = React.lazy(() => import("./shared/pages/AdminPanel"));
+const AdminPanel = React.lazy(() => import("./admin/pages/AdminPanel"));
 const Home = React.lazy(() => import("./shared/pages/Home"));
 const About = React.lazy(() => import("./shared/pages/ErrorPage"));
 const Auth = React.lazy(() => import("./user/pages/Auth"));
