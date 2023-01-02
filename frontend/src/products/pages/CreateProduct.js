@@ -1,4 +1,7 @@
 import React from "react";
+import { useForm } from "../../shared/hooks/form-hook";
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../../shared/components/Form/Input";
 import Button from "../../shared/components/Form/Button";
@@ -6,9 +9,12 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validate";
-import { useForm } from "../../shared/hooks/form-hook";
+import ErrorModal from "../../shared/components/UIelements/ErrorModal";
+import Loader from "../../shared/components/UIelements/Loader";
 
 const CreateProduct = () => {
+  const navigate = useNavigate();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -36,13 +42,31 @@ const CreateProduct = () => {
     formIsValid = true;
   }
 
-  const productSubmitHandler = (event) => {
+  const productSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+
+    try {
+      await sendRequest(
+        "http://localhost:8000/api/products/new",
+        "POST",
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          description: formState.inputs.description.value,
+          price: formState.inputs.price.value,
+          inStock: formState.inputs.inStock.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      navigate("/admin");
+    } catch (error) {}
   };
 
   return (
     <div className="main">
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <Loader asOverlay />}
       <form className="create_form" onSubmit={productSubmitHandler}>
         <Input
           id="title"
@@ -74,8 +98,8 @@ const CreateProduct = () => {
           onInput={inputHandler}
         />
         <Input
-          id="instock"
-          type=""
+          id="inStock"
+          type="text"
           label="Na Stanju"
           element="input"
           validators={[VALIDATOR_REQUIRE()]}
@@ -84,9 +108,7 @@ const CreateProduct = () => {
           onInput={inputHandler}
         />
 
-        <Button type="submit" disabled={!formState.isValid}>
-          Kreiraj
-        </Button>
+        <Button type="submit">Kreiraj</Button>
       </form>
     </div>
   );
