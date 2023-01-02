@@ -1,51 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
 
-import Slika from "../../shared/assets/sweater.png";
-const DUMMY_PRODUCTS = [
-  {
-    id: "p1",
-    image: Slika,
-    title: "Adidas Game",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 1600,
-    inStock: "da",
-  },
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
-  {
-    id: "p2",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 2000,
-    inStock: "ne",
-  },
-  {
-    id: "p3",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 1000,
-    inStock: "da",
-  },
-  {
-    id: "p4",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 4000,
-    inStock: "da",
-  },
-];
+import ErrorModal from "../../shared/components/UIelements/ErrorModal";
+import Loader from "../../shared/components/UIelements/Loader";
 
 const Products = () => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [loadedProducts, setLoadedProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:8000/api/products/"
+        );
+        setLoadedProducts(responseData.products);
+      } catch (err) {}
+    };
+
+    fetchProducts();
+  }, [sendRequest]);
+
   return (
     <div>
-      <ProductList products={DUMMY_PRODUCTS} />
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && <Loader asOverlay />}
+      <ProductList products={loadedProducts} />
     </div>
   );
 };
