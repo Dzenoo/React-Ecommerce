@@ -39,10 +39,7 @@ const SKU = [
 const ProductDetails = (props) => {
   const [option, setOption] = useState("S");
 
-  const productId = useParams().pid;
-  let productContent = props.productsDetail.find((p) => p.id === productId);
-
-  const { id, title, image, description, price, inStock } = productContent;
+  const { id, title, image, description, price, inStock } = props.productDetail;
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
