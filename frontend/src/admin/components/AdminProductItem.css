@@ -1,0 +1,23 @@
+.product_item {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 2em;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+}
+
+.product_item img {
+  width: 160px;
+  height: auto;
+}
+
+.product_item h1 {
+  font-size: 18px;
+}
+
+.btns p {
+  word-wrap: break-word;
+}
