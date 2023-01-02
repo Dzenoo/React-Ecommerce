@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useForm } from "../../shared/hooks/form-hook";
 
-import Slika from "../../shared/assets/img_hero.png";
 import Loader from "../../shared/components/UIelements/Loader";
 import Input from "../../shared/components/Form/Input";
 import {
@@ -10,48 +10,12 @@ import {
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validate";
 import Button from "../../shared/components/Form/Button";
-const DUMMY_PRODUCTS = [
-  {
-    id: "p1",
-    image: Slika,
-    title: "Adidas Game",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 1600,
-    inStock: "da",
-  },
-
-  {
-    id: "p2",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 2000,
-    inStock: "ne",
-  },
-  {
-    id: "p3",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 1000,
-    inStock: "da",
-  },
-  {
-    id: "p4",
-    image: Slika,
-    title: "Adidas Game ",
-    description:
-      "Adidas Game and Go muški duks sa kapuljačom za trening namenjen je svim sportistima i rekreativcima koji nastavljaju rutinu napolju i kada živa u termometru padne. Zagrevanje po hladnoći više nije problem.",
-    price: 4000,
-    inStock: "da",
-  },
-];
+import ErrorModal from "../../shared/components/UIelements/ErrorModal";
 
 const UpdateProduct = (props) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [loadedProduct, setLoadedProduct] = useState();
   const productId = useParams().productId;
 
   const [formState, inputHandler, setFormData] = useForm(
@@ -63,7 +27,7 @@ const UpdateProduct = (props) => {
 
       description: {
         value: "",
-        isValid: true,
+        isValid: false,
       },
 
       price: {
@@ -79,41 +43,60 @@ const UpdateProduct = (props) => {
     false
   );
 
-  const identifiedProduct = DUMMY_PRODUCTS.find((p) => p.id === productId);
-
   useEffect(() => {
-    if (identifiedProduct) {
-      setFormData(
-        {
-          title: {
-            value: identifiedProduct.title,
-            isValid: true,
-          },
+    const fetchProducts = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:8000/api/products/${productId}`
+        );
+        setLoadedProduct(responseData.product);
+        setFormData(
+          {
+            title: {
+              value: responseData.product.title,
+              isValid: true,
+            },
 
-          description: {
-            value: identifiedProduct.description,
-            isValid: true,
-          },
+            description: {
+              value: responseData.product.description,
+              isValid: true,
+            },
 
-          price: {
-            value: identifiedProduct.price,
-            isValid: true,
-          },
+            price: {
+              value: responseData.product.price,
+              isValid: true,
+            },
 
-          inStock: {
-            value: identifiedProduct.inStock,
-            isValid: true,
+            inStock: {
+              value: responseData.product.inStock,
+              isValid: true,
+            },
           },
-        },
-        true
-      );
-    }
-    setIsLoading(false);
-  }, [setFormData, identifiedProduct]);
+          true
+        );
+      } catch (error) {}
+    };
+    fetchProducts();
+  }, [sendRequest, productId, setFormData]);
 
-  const productUpdateHandler = (event) => {
+  const productUpdateHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+    try {
+      await sendRequest(
+        `http://localhost:8000/api/products/${productId}`,
+        "PATCH",
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          description: formState.inputs.description.value,
+          price: formState.inputs.price.value,
+          inStock: formState.inputs.inStock.value,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+    } catch (err) {}
+    navigate("/admin");
   };
 
   if (isLoading) {
@@ -124,62 +107,75 @@ const UpdateProduct = (props) => {
     );
   }
 
+  if (!loadedProduct && !error) {
+    return (
+      <div className="center">
+        <h1>Ne moze se pronaci</h1>
+      </div>
+    );
+  }
+
   return (
-    <form className="create_form" onSubmit={productUpdateHandler}>
-      <Input
-        id="title"
-        element="input"
-        type="text"
-        label="Naziv"
-        placeholders="Naziv"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Unesi validan naziv"
-        onInput={inputHandler}
-        initialValue={formState.inputs.title.value}
-        initialValid={formState.inputs.title.isValid}
-      />
+    <>
+      <ErrorModal error={error} onClear={clearError} />
+      {!isLoading && loadedProduct && (
+        <form className="create_form" onSubmit={productUpdateHandler}>
+          <Input
+            id="title"
+            element="input"
+            type="text"
+            label="Naziv"
+            placeholders="Naziv"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Unesi validan naziv"
+            onInput={inputHandler}
+            initialValue={loadedProduct.title}
+            initialValid={true}
+          />
 
-      <Input
-        id="desc"
-        type="text"
-        label="Opis"
-        placeholders="Opis"
-        validators={[VALIDATOR_MINLENGTH(20)]}
-        errorText="Unesi validan opis (20)"
-        onInput={inputHandler}
-        initialValue={formState.inputs.description.value}
-        initialValid={formState.inputs.description.isValid}
-      />
-      <Input
-        id="price"
-        element="input"
-        type="number"
-        label="Cena"
-        placeholders="Cena"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Unesi validnu cenu"
-        onInput={inputHandler}
-        initialValue={formState.inputs.price.value}
-        initialValid={formState.inputs.price.isValid}
-      />
+          <Input
+            id="description"
+            type="text"
+            label="Opis"
+            placeholders="Opis"
+            validators={[VALIDATOR_MINLENGTH(20)]}
+            errorText="Unesi validan opis (20)"
+            onInput={inputHandler}
+            initialValue={loadedProduct.description}
+            initialValid={true}
+          />
+          <Input
+            id="price"
+            element="input"
+            type="number"
+            label="Cena"
+            placeholders="Cena"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Unesi validnu cenu"
+            onInput={inputHandler}
+            initialValue={loadedProduct.price}
+            initialValid={true}
+          />
 
-      <Input
-        id="instock"
-        element="input"
-        type="text"
-        label="Na stanju"
-        placeholders="Da li je na stanju"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Unesi validan input"
-        onInput={inputHandler}
-        initialValue={formState.inputs.inStock.value}
-        initialValid={formState.inputs.inStock.isValid}
-      />
+          <Input
+            id="inStock"
+            element="input"
+            type="text"
+            label="Na stanju"
+            placeholders="Da li je na stanju"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Unesi validan input"
+            onInput={inputHandler}
+            initialValue={loadedProduct.inStock}
+            initialValid={true}
+          />
 
-      <Button type="submit" disabled={!formState.isValid}>
-        Update
-      </Button>
-    </form>
+          <Button type="submit" disabled={!formState.isValid}>
+            Update
+          </Button>
+        </form>
+      )}
+    </>
   );
 };
 
