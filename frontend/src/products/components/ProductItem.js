@@ -5,14 +5,7 @@ import Button from "../../shared/components/Form/Button";
 import "./ProductItem.css";
 
 const ProductItem = (props) => {
-  const { id, image, title, price, description, inStock } = props;
-
-  let stockContent;
-  if (inStock === "ne") {
-    stockContent = <h3 className="stc_red">Nije Na stanju</h3>;
-  } else if (inStock === "da") {
-    stockContent = <h3 className="stc_green">Na stanju</h3>;
-  }
+  const { id, image, title, price, description } = props;
 
   return (
     <Card>
@@ -31,10 +24,9 @@ const ProductItem = (props) => {
 
         <div className="item__footer">
           <span>
-            <p>{price}</p> RSD
+            <p>{price} DIN</p>
           </span>
 
-          {/* Prikazi detalje */}
           <Button to={`/products/${id}`}>Vidi vise</Button>
         </div>
       </li>
