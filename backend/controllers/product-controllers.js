@@ -44,7 +44,8 @@ exports.createProduct = async (req, res, next) => {
     return next(new HttpError("Nevazeci unosi", 422));
   }
 
-  const { title, description, price, inStock } = req.body;
+    const { title, description, price, inStock, category } = req.body;
+
 
   const createdProduct = new Product({
     title,
