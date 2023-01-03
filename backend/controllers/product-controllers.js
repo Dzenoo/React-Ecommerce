@@ -74,7 +74,8 @@ exports.editProduct = async (req, res, next) => {
     return next(new HttpError("Nevazeci unosi", 422));
   }
 
-  const { title, description, price, inStock } = req.body;
+   const { title, description, price, category, inStock } = req.body;
+
   const productId = req.params.pid;
 
   let product;
@@ -86,8 +87,9 @@ exports.editProduct = async (req, res, next) => {
   }
 
   product.title = title;
-  product.description = description;
+   product.description = description;
   product.price = price;
+   product.category = category;
   product.inStock = inStock;
 
   try {
