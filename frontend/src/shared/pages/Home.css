@@ -3,46 +3,106 @@ body {
 }
 
 .mainpage {
-  background-image: url("../assets/fashion__2.png");
-  padding: 300px;
-  background-position: center;
-  background-size: cover;
+  background-image: linear-gradient(#1a1a1bb3, #00000096),
+    url("../assets/fashion.png");
+  background-repeat: no-repeat;
+  background-position: top 26% right 0;
+  height: 90vh;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  justify-content: center;
 }
 
-.mainpage h1 {
-  text-align: center;
+.mainpage .text {
+  margin-left: 120px;
+}
+
+.mainpage .text h1 {
+  font-size: 4rem;
+  padding-bottom: 16px;
   color: #fff;
-  font-size: 5em;
-  margin-top: 120px;
+}
+
+.mainpage .text p {
+  font-size: 1.3rem;
+  color: #fff;
+  padding-bottom: 16px;
+}
+
+.mainpage .text h1 {
+  font-size: 4rem;
+  padding-bottom: 16px;
 }
 
 .mainpage .ch {
-  color: black;
+  color: #088371;
 }
 
-.bttn-mainpage {
-  padding: 1.9em 6.5em;
-  font-size: 15px;
-  border: none;
-  background-color: #fff;
-  color: black;
-  border-radius: 15px;
-  -webkit-box-shadow: inset -3px -3px 33px -12px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: inset -3px -3px 33px -12px rgba(0, 0, 0, 0.6);
-  box-shadow: inset -3px -3px 33px -12px rgba(0, 0, 0, 0.6);
-  background-color: rgb(184, 218, 237);
+.after_hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  padding-bottom: 60px;
+  padding-top: 60px;
 }
 
-.bttn-mainpage:hover {
-  color: black;
-  background-color: rgb(184, 218, 237);
-  border-radius: 15px;
-  transition: 1s;
-  -webkit-box-shadow: -3px -3px 53px -12px rgba(0, 0, 0, 0.76);
-  -moz-box-shadow: -3px -3px 71px -12px rgba(0, 0, 0, 0.76);
-  box-shadow: -3px -3px 53px -12px rgba(0, 0, 0, 0.76);
+.after_hero .item {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 2px 2px 10px rgba(220, 220, 220, 0.484);
+  border: 2px solid #fff;
+  display: block;
+  text-align: center;
+}
+
+.after_hero .item img {
+  width: 80%;
+  height: auto;
+}
+
+.after_hero .item h1 {
+  padding: 12px;
+  background-color: #303030;
+  border-radius: 4px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.newsletter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 60px;
+  background-color: #088371;
+  color: #fff;
+}
+
+.newsletter h1 {
+  color: #fff;
+  font-size: 44px;
+}
+
+.newsletter p {
+  color: rgb(227, 222, 222);
+  font-size: 20px;
+}
+
+@media (max-width: 425px) {
+  .mainpage .text {
+    margin: auto !important;
+    padding: 20px;
+  }
+}
+@media (max-width: 325px) {
+  .mainpage .text h1 {
+    font-size: 3rem;
+  }
+
+  .newsletter {
+    padding: 30px;
+  }
 }
