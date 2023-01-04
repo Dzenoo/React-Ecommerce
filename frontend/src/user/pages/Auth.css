@@ -3,9 +3,16 @@
   margin-top: 20px;
 }
 
+.form_div {
+  background-image: linear-gradient(#1a1a1bb3, #00000096),
+    url("../../shared//assets/fashion.png");
+  background-size: cover;
+  padding: 220px;
+}
+
 .switchbtn {
   text-decoration: none;
   cursor: pointer;
   text-decoration: dotted;
-  color: royalblue;
+  color: #034efd;
 }
