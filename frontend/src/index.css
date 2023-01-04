@@ -1,11 +1,9 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(202, 230, 255);
 }
 
 code {
@@ -43,7 +41,6 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 }
 
 .create_form {
@@ -58,12 +55,12 @@ code {
 
 .btns {
   display: flex;
-  flex-direction: column;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .checkspan {
-  color: royalblue;
+  color: #034efd;
   font-weight: bold;
   font-size: 16px;
 }
@@ -75,4 +72,35 @@ code {
   justify-content: space-between;
   overflow: hidden;
   margin: 2rem;
+}
+
+.prod_banner {
+  background-image: linear-gradient(#54545cb3, #0f0f0f96),
+    url("./shared/assets/AMB.png");
+  background-size: cover;
+  width: 100%;
+  height: 44rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 3rem;
+  color: #fff;
+}
+
+.products_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+.products_wrapper .actions {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
