@@ -13,7 +13,6 @@ router.get("/:pid", productControllers.getProductById);
 
 router.post(
   "/new",
-  checkAdmin,
   fileUpload.single("image"),
   [
     check("title").not().isEmpty(),
@@ -26,7 +25,6 @@ router.post(
 
 router.patch(
   "/:pid",
-  checkAdmin,
   [
     check("title").not().isEmpty(),
     check("description").isLength({ min: 6 }),
@@ -36,6 +34,6 @@ router.patch(
   productControllers.editProduct
 );
 
-router.delete("/:pid", checkAdmin, productControllers.deleteProduct);
+router.delete("/:pid", productControllers.deleteProduct);
 
 module.exports = router;
