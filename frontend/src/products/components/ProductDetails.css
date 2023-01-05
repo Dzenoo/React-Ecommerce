@@ -47,6 +47,7 @@
 .content_top p {
   color: grey;
   font-weight: 600;
+  line-height: 38px;
   font-size: 20px;
   word-wrap: break-word;
 }

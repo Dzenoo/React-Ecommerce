@@ -9,7 +9,7 @@ const ProductItem = (props) => {
   return (
     <li className="item">
       <div className="item__image">
-        <img src={`http://localhost:8000/${image}`} alt={title} />
+        <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       </div>
 
       <div className="item__text">

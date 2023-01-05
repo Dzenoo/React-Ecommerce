@@ -70,14 +70,23 @@ const ProductDetails = (props) => {
   };
 
   const addToFavoritesHandler = () => {
-    dispatch(FavoriteActions.AddToFavorite({ id, image, title, description }));
+    dispatch(
+      FavoriteActions.AddToFavorite({
+        id,
+        image,
+        title,
+        description,
+        price,
+        inStock,
+      })
+    );
     toast.success("Dodano u listu zelja!");
   };
 
   return (
     <div className="product_details_container">
       <div className="product_details_image">
-        <img src={`http://localhost:8000/${image}`} alt={title} />
+        <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       </div>
 
       <div className="product_details_content">
