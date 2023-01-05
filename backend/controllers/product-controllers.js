@@ -1,5 +1,6 @@
+const fs = require("fs");
+
 const { validationResult } = require("express-validator");
-const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
 const Product = require("../models/product");
@@ -44,14 +45,14 @@ exports.createProduct = async (req, res, next) => {
     return next(new HttpError("Nevazeci unosi", 422));
   }
 
-    const { title, description, price, inStock, category } = req.body;
-
+  const { title, description, price, inStock, category } = req.body;
 
   const createdProduct = new Product({
     title,
     description,
-    image: "https://www.djaksport.com/image.aspx?imageId=168883",
+    image: req.file.path,
     price,
+    category,
     inStock,
   });
 
@@ -74,8 +75,7 @@ exports.editProduct = async (req, res, next) => {
     return next(new HttpError("Nevazeci unosi", 422));
   }
 
-   const { title, description, price, category, inStock } = req.body;
-
+  const { title, description, price, category, inStock } = req.body;
   const productId = req.params.pid;
 
   let product;
@@ -87,9 +87,9 @@ exports.editProduct = async (req, res, next) => {
   }
 
   product.title = title;
-   product.description = description;
+  product.description = description;
   product.price = price;
-   product.category = category;
+  product.category = category;
   product.inStock = inStock;
 
   try {
@@ -102,7 +102,7 @@ exports.editProduct = async (req, res, next) => {
   res.status(200).json({ product: product.toObject({ getters: true }) });
 };
 
-exports.deleteProduct = async (req, res, send) => {
+exports.deleteProduct = async (req, res, next) => {
   const productId = req.params.pid;
 
   let product;
@@ -116,6 +116,8 @@ exports.deleteProduct = async (req, res, send) => {
     return next(error);
   }
 
+  const imagePath = product.image;
+
   try {
     await product.remove();
   } catch (err) {
@@ -123,5 +125,9 @@ exports.deleteProduct = async (req, res, send) => {
     return next(error);
   }
 
-  res.status(200).json({ message: "Deleted Product" });
+  fs.unlink(imagePath, (err) => {
+    console.log(err);
+  });
+
+  res.status(200).json({ message: "Artikal izbrisan" });
 };
