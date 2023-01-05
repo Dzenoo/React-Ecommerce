@@ -49,11 +49,12 @@
 }
 
 .admin__center .users_list .user_item {
-  background-color: #2c8065;
-  color: #fff;
+  background-color: #fff;
+  color: #303030;
   margin: 20px;
   padding: 20px;
   display: flex;
+  box-shadow: 9px 9px 20px #5854544c;
   align-items: center;
   gap: 33px;
   border-radius: 30px;
@@ -105,10 +106,10 @@
   width: fit-content;
   padding: 20px;
   flex-direction: column;
-  background-color: #e4e6e5;
+  background-color: #fff;
   border-radius: 30px;
-  border: 2px solid #fff;
-  box-shadow: 2px 2px 2px 2px rgb(71, 70, 70);
+  border: 2px solid rgb(239, 233, 233);
+  box-shadow: 9px 9px 20px #5854544c;
 }
 
 .orders_section .naslovi:hover {
@@ -123,7 +124,7 @@
   justify-content: space-between;
 }
 .orders_section .product_info {
-  border-top: 6px solid #fff;
+  border-top: 6px solid rgb(112, 108, 108);
 }
 
 .orders_section .product_info img {

@@ -29,7 +29,7 @@ const AdminProductItem = (props) => {
     setModalIsOpen(false);
     try {
       await sendRequest(
-        `http://localhost:8000/api/products/${_id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/products/${_id}`,
         "DELETE",
         null,
         {
@@ -62,7 +62,7 @@ const AdminProductItem = (props) => {
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <Loader asOverlay />}
       <div className="product_item" key={_id}>
-        <img src={`http://localhost:8000/${image}`} alt={title} />
+        <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
 
         <div className="text">
           <p>

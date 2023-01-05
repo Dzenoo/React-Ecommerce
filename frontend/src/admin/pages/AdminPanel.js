@@ -24,7 +24,7 @@ const AdminPanel = () => {
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:8000/api/users/"
+          `${process.env.REACT_APP_BACKEND_URL}/users`
         );
         setUsers(responseData.users);
       } catch (err) {}
@@ -37,7 +37,7 @@ const AdminPanel = () => {
     const fetchProducts = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:8000/api/products/"
+          `${process.env.REACT_APP_BACKEND_URL}/products`
         );
         setProducts(responseData.products);
       } catch (err) {}
@@ -57,7 +57,7 @@ const AdminPanel = () => {
     const fetchOrders = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:8000/api/orders/"
+          `${process.env.REACT_APP_BACKEND_URL}/orders`
         );
         setOrders(responseData.orders);
       } catch (err) {}
@@ -74,7 +74,7 @@ const AdminPanel = () => {
   const deleteOrderHandler = async (enteredId) => {
     try {
       await sendRequest(
-        `http://localhost:8000/api/orders/${enteredId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/orders/${enteredId}`,
         "DELETE",
         null,
         {
@@ -181,7 +181,7 @@ const AdminPanel = () => {
                     </p>
 
                     <img
-                      src={`http://localhost:8000/${item.image}`}
+                      src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`}
                       alt={item.title}
                     />
                   </div>
