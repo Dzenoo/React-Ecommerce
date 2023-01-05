@@ -84,7 +84,7 @@ const AdminProductItem = (props) => {
         </div>
 
         <div className="btns">
-          <Button action to={`/admin/${_id}`}>
+          <Button action to={`/da/${_id}`}>
             <AiFillEdit />
             Izmeni
           </Button>
