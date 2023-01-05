@@ -104,8 +104,8 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  background-color: rgb(238, 238, 238);
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .productSection .productItem img {
