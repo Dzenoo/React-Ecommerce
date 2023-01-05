@@ -20,11 +20,7 @@ const NavLinks = (props) => {
 
   return (
     <>
-      {isLoggedIn && (
-        <NavLink to="/admin" className="hide">
-          ad
-        </NavLink>
-      )}
+   
       <ul className="menu">
         {/* Always Reachable */}
         <li>
