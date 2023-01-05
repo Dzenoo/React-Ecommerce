@@ -17,6 +17,8 @@ const FavoriteSlice = createSlice({
           id: newItem.id,
           image: newItem.image,
           title: newItem.title,
+          price: newItem.price,
+          inStock: newItem.inStock,
           description: newItem.description,
         });
       }
