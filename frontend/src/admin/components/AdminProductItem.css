@@ -1,23 +1,36 @@
 .product_item {
-  background-color: #fff;
+  background-color: rgb(230, 230, 230);
   border-radius: 20px;
-  padding: 2em;
   margin: 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  color: #fff;
+  flex-wrap: wrap;
   gap: 2rem;
+  padding: 20px;
+  max-width: 400px;
+}
+
+.product_item .text {
+  word-wrap: break-word;
+  max-width: 300px;
+  overflow: hidden;
 }
 
 .product_item img {
-  width: 160px;
+  width: 100%;
   height: auto;
+  border-radius: 20px;
 }
 
 .product_item h1 {
+  color: #303030;
   font-size: 18px;
 }
 
-.btns p {
+.product_item p {
   word-wrap: break-word;
+  color: #5f5f5f;
 }

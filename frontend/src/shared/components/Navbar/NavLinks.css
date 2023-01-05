@@ -5,10 +5,13 @@
   align-items: center;
   justify-content: space-around;
 }
+.menu li {
+  margin-left: 20px;
+}
 
 .menu li a {
   text-decoration: none;
-  color: black;
+  color: #303030;
   font-weight: 600;
   padding: 1em 2em;
 }
@@ -18,14 +21,25 @@
 .menu a.active {
   transition: 0.4s !important;
   color: white;
-  background-color: black;
-  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  border-radius: 40px;
+  background-color: #303030;
 }
 
 .menu_links {
   display: flex;
   gap: 2em;
+}
+
+.hide {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(246, 246, 246);
+  color: transparent;
+  border-radius: 20px;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
 }
 
 .bar {
@@ -60,6 +74,7 @@
   .menu {
     flex-direction: column;
     margin-top: 30vh;
+    gap: 3rem;
   }
 
   .menu li a {

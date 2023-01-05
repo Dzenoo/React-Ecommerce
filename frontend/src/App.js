@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
-import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
 
 import Navigation from "./shared/components/Navbar/Navigation";
 import Loader from "./shared/components/UIelements/Loader";
-import ErrorPage from "./shared/pages/ErrorPage";
 
 const Favorites = React.lazy(() => import("./cart/pages/Favorites"));
 const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
@@ -12,7 +12,7 @@ const Cart = React.lazy(() => import("./cart/pages/CartPage"));
 const Products = React.lazy(() => import("./products/pages/Products"));
 const AdminPanel = React.lazy(() => import("./admin/pages/AdminPanel"));
 const Home = React.lazy(() => import("./shared/pages/Home"));
-const About = React.lazy(() => import("./shared/pages/ErrorPage"));
+const ErrorPage = React.lazy(() => import("./shared/pages/ErrorPage"));
 const Auth = React.lazy(() => import("./user/pages/Auth"));
 const CreateProduct = React.lazy(() =>
   import("./products/pages/CreateProduct")
@@ -25,70 +25,76 @@ const ProductDetail = React.lazy(() =>
 );
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const cartItems = useSelector((state) => state.cart.items);
-  const isAdmin = true;
-  let isCartEmpty = true;
-
-  if (cartItems.length === 0) {
-    isCartEmpty = false;
-  }
+  const { token, login, logout, userId, user } = useAuth();
 
   let routes;
-  if (!isLoggedIn) {
-    routes = (
-      <>
-        <Route path="/" element={<Home />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:pid" element={<ProductDetail />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/authenticate" element={<Auth />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </>
-    );
+  if (token) {
+    if (user && user.isAdmin) {
+      routes = (
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/cart/checkout" element={<Checkout />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:pid" element={<ProductDetail />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/new" element={<CreateProduct />} />
+          <Route path="/admin/:productId" element={<UpdateProduct />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </>
+      );
+    } else {
+      routes = (
+        <>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/cart/checkout" element={<Checkout />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:pid" element={<ProductDetail />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </>
+      );
+    }
   } else {
     routes = (
       <>
         <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route
-          path="/cart/checkout"
-          element={isCartEmpty && isLoggedIn ? <Checkout /> : <ErrorPage />}
-        />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:pid" element={<ProductDetail />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/admin"
-          element={isAdmin ? <AdminPanel /> : <h1>Not allowed</h1>}
-        />
-        <Route
-          path="/admin/new"
-          element={isAdmin ? <CreateProduct /> : <h1>Not allowed</h1>}
-        />
-        <Route
-          path="/admin/:productId"
-          element={isAdmin ? <UpdateProduct /> : <h1>Not allowed</h1>}
-        />
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="/authenticate" element={<Auth />} />
         <Route path="*" element={<Navigate to="/" />} />
       </>
     );
   }
 
   return (
-    <main>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
+        login: login,
+        logout: logout,
+      }}
+    >
       <Navigation />
-      <Suspense
-        fallback={
-          <div className="center">
-            <Loader />
-          </div>
-        }
-      >
-        <Routes>{routes}</Routes>
-      </Suspense>
-    </main>
+      <main>
+        <Suspense
+          fallback={
+            <div className="center">
+              <Loader />
+            </div>
+          }
+        >
+          <Routes>{routes}</Routes>
+        </Suspense>
+      </main>
+    </AuthContext.Provider>
   );
 }
 

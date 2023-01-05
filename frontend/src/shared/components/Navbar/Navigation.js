@@ -22,15 +22,18 @@ const Navigation = (props) => {
   return (
     <div className="main_navigation">
       {/* Main Navigation */}
-      <BiMenuAltLeft cursor="pointer" className="menu-btn" onClick={openNav} />
-      <img src={logo} width={160} height={160} />
+      <button className="btn">
+        <BiMenuAltLeft cursor="pointer" onClick={openNav} />
+      </button>
+      <img src={logo} />
       <div className="nav">
         <NavLinks name={props.name} />
       </div>
 
       {/* Responsive Navigation */}
       {navIsOpen && <Backdrop onClick={closeNav} />}
-      <ResponsiveNav show={navIsOpen} onClick={closeNav}>
+      <ResponsiveNav show={navIsOpen}>
+        <img src={logo} />
         <NavLinks name={props.name} />
       </ResponsiveNav>
     </div>

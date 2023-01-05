@@ -1,16 +1,12 @@
-.fav_wrapper {
-  margin: auto;
-  max-width: 800px;
-  margin-top: 30px;
-}
-
 .fav_item {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   gap: 2rem;
   border-bottom: 2px solid #303030;
   padding-bottom: 20px;
+  background-color: #fff;
 }
 
 .fav_item img {
@@ -26,6 +22,7 @@
 
 .fav_item .fav_item_description p {
   font-size: 14px;
+  line-break: anywhere;
   color: #303030;
 }
 

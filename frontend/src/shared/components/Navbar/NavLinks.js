@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 
 import Button from "../Form/Button";
-import UserItem from "../../../user/components/UserItem";
 
 import "./NavLinks.css";
+import { AuthContext } from "../../context/auth-context";
 
 const NavLinks = (props) => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const totalQty = useSelector((state) => state.cart.totalQuantity);
+  const auth = useContext(AuthContext);
+  const isLoggedIn = auth.isLoggedIn;
+
+  const logout = () => {
+    auth.logout();
+  };
 
   return (
     <>
+      {isLoggedIn && (
+        <NavLink to="/admin" className="hide">
+          ad
+        </NavLink>
+      )}
       <ul className="menu">
         {/* Always Reachable */}
         <li>
@@ -30,7 +40,7 @@ const NavLinks = (props) => {
           <li className="bar">
             <NavLink to="/cart" style={{ textDecoration: "none" }}>
               <AiOutlineShoppingCart />
-            </Link>
+            </NavLink>
             <span>{totalQty}</span>
           </li>
         )}
@@ -39,22 +49,22 @@ const NavLinks = (props) => {
           <li className="bar">
             <NavLink to="/favorites" style={{ textDecoration: "none" }}>
               <AiFillStar />
-            </Link>
+            </NavLink>
           </li>
         )}
 
-        {isLoggedIn && <UserItem name="Dzenis" />}
-
-        {/* Admin */}
-
         {isLoggedIn && (
-          <li>
-            <NavLink to="/admin">Admin</Link>
-          </li>
+          <Button inverse onClick={logout}>
+            Izloguj se
+          </Button>
         )}
 
         {/* to="/authenticate" */}
-        {!isLoggedIn && <Button to="/authenticate">Uloguj se</Button>}
+        {!isLoggedIn && (
+          <Button inverse to="/authenticate">
+            Uloguj se
+          </Button>
+        )}
       </ul>
     </>
   );

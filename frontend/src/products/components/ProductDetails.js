@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,6 +8,7 @@ import { cartActions } from "../../shared/redux/cart-slice";
 import { FavoriteActions } from "../../shared/redux/favorite-slice";
 
 import "./ProductDetails.css";
+import { AuthContext } from "../../shared/context/auth-context";
 
 const SKU = [
   {
@@ -38,11 +39,13 @@ const SKU = [
 
 const ProductDetails = (props) => {
   const [option, setOption] = useState("S");
+  const auth = useContext(AuthContext);
+  const isLoggedIn = auth.isLoggedIn;
 
-  const { id, title, image, description, price, inStock } = props.productDetail;
+  const { id, title, image, description, price, category, inStock } =
+    props.productDetail;
 
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   let isInStock;
   let isAllowedToBuy = false;
@@ -74,11 +77,12 @@ const ProductDetails = (props) => {
   return (
     <div className="product_details_container">
       <div className="product_details_image">
-        <img src={image} alt={title} />
+        <img src={`http://localhost:8000/${image}`} alt={title} />
       </div>
 
       <div className="product_details_content">
         <div className="content_top">
+          <span>{category}</span>
           <h1>{title}</h1>
           <div style={{ display: "flex", alignItems: "center", gap: "2em" }}>
             <span>{price} DIN</span> |{isInStock}
@@ -86,7 +90,6 @@ const ProductDetails = (props) => {
           <p>{description}</p>
         </div>
 
-        <h3>Izaberite velicinu:</h3>
         <div className="content_mid">
           <select value={option} onChange={(e) => setOption(e.target.value)}>
             {SKU.map((size, index) => (
@@ -97,17 +100,24 @@ const ProductDetails = (props) => {
         </div>
 
         <div className="content_bottom">
-          {isAllowedToBuy && isLoggedIn && (
-            <Button onClick={addToCart}>Dodaj u korpu</Button>
+          {isAllowedToBuy && (
+            <Button to={!isLoggedIn && "/authenticate"} onClick={addToCart}>
+              Dodaj u korpu
+            </Button>
           )}
 
-          {isAllowedToBuy && isLoggedIn && (
-            <Button onClick={addToFavoritesHandler}>
+          {isAllowedToBuy && (
+            <Button
+              to={!isLoggedIn && "/authenticate"}
+              inverse
+              onClick={addToFavoritesHandler}
+            >
               Dodaj na listu zelja
             </Button>
           )}
         </div>
       </div>
+
       <ToastContainer />
     </div>
   );

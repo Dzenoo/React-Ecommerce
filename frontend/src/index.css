@@ -1,9 +1,13 @@
 body {
   margin: 0;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background: linear-gradient(
+    to top right,
+    rgb(229, 244, 244),
+    rgb(192, 246, 228)
+  ); */
 }
 
 code {

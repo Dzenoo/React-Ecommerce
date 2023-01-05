@@ -1,52 +1,70 @@
 .checkout_section {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-evenly;
+  align-items: baseline;
   padding: 30px;
   flex-wrap: wrap;
   gap: 2rem;
+  background: linear-gradient(
+    to top right,
+    rgb(209, 252, 252),
+    rgb(155, 240, 212)
+  );
 }
 
 .checkout_section h1,
 h2 {
   font-size: 26px;
-  color: #6b6b6b;
+  color: black;
 }
 
 .checkout_section .checkout_form {
-  width: 800px;
   background-color: #fff;
   padding: 30px;
   border-radius: 12px;
+  width: 600px;
+}
+
+.checkout_section .checkout_form .formflex {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .checkout_section .checkout_cart {
   background-color: #fff;
   display: flex;
-  width: 800px;
+  width: 400px;
+  gap: 2em;
   padding: 30px;
   border-radius: 12px;
+  border: 1px solid rgb(253, 253, 253);
   flex-direction: column;
+}
+
+.checkout_cart h1 {
+  color: #303030;
+}
+
+.teks {
+  display: block;
 }
 
 .checkout_section .checkout_cart .checkout_cart_item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 2rem;
-  border-bottom: 2px solid grey;
   padding-bottom: 12px;
 }
 
 .checkout_section .checkout_cart .checkout_cart_item span {
   font-size: 20px;
-  color: royalblue;
+  color: #303030;
 }
 
 .checkout_section .checkout_cart .checkout_cart_item h2 {
-  background-color: lightgrey;
-  color: #fff;
+  color: #303030;
   padding: 6px;
+  font-size: 10px;
 }
 
 .checkout_section .checkout_cart .checkout_cart_item img {

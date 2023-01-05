@@ -9,12 +9,13 @@ const ProductList = (props) => {
     <ul className="list">
       {props.products.map((product) => (
         <ProductItem
-          key={product.id}
-          id={product.id}
+          key={product._id}
+          id={product._id}
           image={product.image}
           title={product.title}
           description={product.description}
           price={product.price}
+          category={product.category}
           inStock={product.inStock}
         />
       ))}

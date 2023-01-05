@@ -1,13 +1,20 @@
 .cart_wrapper {
-  border-radius: 12px;
-  padding: 40px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
+  border-radius: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 70px;
   gap: 2em;
-  overflow: auto;
-  max-width: 900px;
-  margin: 60px auto;
+  background: linear-gradient(45deg, #e6f2f5, #9ed3f9b5);
+}
+
+@media (max-width: 818px) {
+  .cart_wrapper {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2em;
+  }
 }
 
 .desc {
@@ -20,4 +27,5 @@
   display: flex;
   justify-content: flex-end;
   gap: 2em;
+  padding: 30px;
 }

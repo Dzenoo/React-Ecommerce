@@ -10,9 +10,8 @@
 }
 
 .modal__header {
-  width: 100%;
   padding: 1rem 0.5rem;
-  background: #314657;
+  background: #034efd;
   color: #fff;
 }
 
@@ -26,6 +25,8 @@
 
 .modal__footer {
   padding: 1rem 0.5rem;
+  display: flex;
+  gap: 20px;
 }
 
 @media (min-width: 768px) {

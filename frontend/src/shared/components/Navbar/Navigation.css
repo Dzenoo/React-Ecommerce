@@ -1,35 +1,33 @@
-.nav {
-  border-bottom: 1px solid black;
-}
-
 .main_navigation {
-  height: 6rem;
   background-color: #fff;
   padding: 0 1rem;
   display: flex;
   align-items: center;
+  height: 7rem;
+  z-index: 20;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
 }
 
-.main_navigation img {
-  margin-top: 60px;
-}
-
-.menu-btn {
+.main_navigation .btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 3rem;
   display: none;
-  font-size: 40px;
+  overflow: hidden;
 }
 
-@media (max-width: 846px) {
-  .menu-btn {
+@media (max-width: 1024px) {
+  .main_navigation .btn {
     display: block;
   }
 
-  .nav {
+  .main_navigation img {
     display: none;
   }
-  .dzeis {
-    position: relative;
-    left: 9em;
+  .nav {
+    display: none;
   }
 }

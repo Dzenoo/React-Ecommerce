@@ -1,36 +1,30 @@
 import React from "react";
 
-import Card from "../../shared/components/UIelements/Card";
 import Button from "../../shared/components/Form/Button";
 import "./ProductItem.css";
 
 const ProductItem = (props) => {
-  const { id, image, title, price, description } = props;
+  const { id, image, title, price, category } = props;
 
   return (
-    <Card>
-      <li className="item">
-        <div className="item__image">
-          <img src={image} alt={title} />
-        </div>
+    <li className="item">
+      <div className="item__image">
+        <img src={`http://localhost:8000/${image}`} alt={title} />
+      </div>
 
-        <div className="item__text">
-          <h1>{title}</h1>
-        </div>
+      <div className="item__text">
+        <p>{category}</p>
+        <h1>{title}</h1>
+      </div>
 
-        <div className="item__desc">
-          <p>{description}</p>
-        </div>
+      <div className="item__footer">
+        <span>
+          <p>{price} DIN</p>
+        </span>
 
-        <div className="item__footer">
-          <span>
-            <p>{price} DIN</p>
-          </span>
-
-          <Button to={`/products/${id}`}>Vidi vise</Button>
-        </div>
-      </li>
-    </Card>
+        <Button to={`/products/${id}`}>Vidi vise</Button>
+      </div>
+    </li>
   );
 };
 

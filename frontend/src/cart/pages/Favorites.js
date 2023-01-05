@@ -1,23 +1,20 @@
 import React from "react";
-
-import "./Favorites.css";
-
 import { useSelector } from "react-redux";
-import Card from "../../shared/components/UIelements/Card";
 
 import FavItem from "../components/FavItem";
+import Card from "../../shared/components/UIelements/Card";
+
+import "./Favorites.css";
 
 const Favorites = () => {
   const favItems = useSelector((state) => state.favorite.favItems);
 
   return (
     <>
-      <div>
-        <div className="center">
-          <h1>Lista zelja</h1>
-        </div>
+      <h1 className="center">Lista zelja</h1>
+      <div className="fav_container">
         {favItems.length === 0 && (
-          <Card className="card">
+          <Card className="card center">
             <h1>Lista zelja je prazna</h1>
           </Card>
         )}
@@ -28,6 +25,8 @@ const Favorites = () => {
               key={item.id}
               image={item.image}
               title={item.title}
+              price={item.price}
+              inStock={item.inStock}
               description={item.description}
             />
           ))}

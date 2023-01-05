@@ -70,6 +70,7 @@ const Input = (props) => {
       <textarea
         name={props.name}
         id={props.id}
+        placeholder={props.placeholder}
         rows={props.rows || 3}
         onChange={changeHandler}
         onBlur={focusHandler}

@@ -1,14 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "../../shared/hooks/form-hook";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validate";
+import { ToastContainer, toast } from "react-toastify";
 
+import ErrorModal from "../../shared/components/UIelements/ErrorModal";
+import Loader from "../../shared/components/UIelements/Loader";
 import Button from "../../shared/components/Form/Button";
 import Input from "../../shared/components/Form/Input";
+
+import "react-toastify/dist/ReactToastify.css";
 import "./Checkout.css";
 
 const Checkout = () => {
-  const [formState, inputHandler, setFormData] = useForm(
+  const { sendRequest, isLoading, error, clearError } = useHttpClient();
+  const [formState, inputHandler] = useForm(
     {
       name: {
         value: "",
@@ -20,7 +27,19 @@ const Checkout = () => {
         isValid: false,
       },
 
-      address: {
+      city: {
+        value: "",
+        isValid: false,
+      },
+      country: {
+        value: "",
+        isValid: false,
+      },
+      postalcode: {
+        value: "",
+        isValid: false,
+      },
+      phone: {
         value: "",
         isValid: false,
       },
@@ -30,56 +49,115 @@ const Checkout = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const subTotal = useSelector((state) => state.cart.subTotal);
 
-  const checkOrderCartHandler = (event) => {
+  const checkOrderCartHandler = async (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
 
-    // save order in mongodb
+    try {
+      await sendRequest(
+        "http://localhost:8000/api/orders/new",
+        "POST",
+        JSON.stringify({
+          name: formState.inputs.name.value,
+          surname: formState.inputs.surname.value,
+          city: formState.inputs.city.value,
+          country: formState.inputs.country.value,
+          postalcode: formState.inputs.postalcode.value,
+          phone: formState.inputs.phone.value,
+          product: cartItems,
+        }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
+      toast.success("Uspesno obavljena porudzbina");
+    } catch (error) {
+      toast.error("Neka greska je");
+      alert(error);
+    }
   };
 
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Checkout</h1>
+      <ToastContainer />
       <div className="checkout_section">
+        <ErrorModal error={error} onClear={clearError} />
+        {isLoading && <Loader asOverlay />}
         <div className="checkout_form">
           <h1>Detalji porudzbine</h1>
           <hr />
-
           <form onSubmit={checkOrderCartHandler}>
+            <div className="formflex">
+              <Input
+                element="input"
+                label="Ime"
+                id="name"
+                type="text"
+                placeholder="Ime"
+                validators={[VALIDATOR_REQUIRE()]}
+                onInput={inputHandler}
+                errorText="Unesite ispravno ime"
+              />
+
+              <Input
+                element="input"
+                id="surname"
+                label="Prezime"
+                type="text"
+                placeholder="Prezime"
+                validators={[VALIDATOR_REQUIRE()]}
+                onInput={inputHandler}
+                errorText="Unesite ispravno prezime"
+              />
+            </div>
+
             <Input
               element="input"
-              label="Ime"
-              id="name"
+              id="city"
+              label="Grad"
               type="text"
-              placeholder="Ime"
+              placeholder="Grad"
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
-              errorText="Unesite ispravno ime"
+              errorText="Unesite ispravan Grad"
             />
 
             <Input
               element="input"
-              id="surname"
-              label="Prezime"
+              label="Drzava"
+              id="country"
               type="text"
-              placeholder="Prezime"
+              placeholder="Drzava"
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
-              errorText="Unesite ispravno prezime"
+              errorText="Unesite ispravnu drzavu"
             />
 
             <Input
               element="input"
-              id="address"
-              label="Adresa"
-              type="text"
-              placeholder="Adresa"
+              label="Postanski broj"
+              id="postalcode"
+              type="number"
+              placeholder="Postanski broj"
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
-              errorText="Unesite ispravnu adresu"
+              errorText="Unesite ispravan postanski broj"
             />
 
-            <Button type="submit">Zavrsi porudzbinu</Button>
+            <Input
+              element="input"
+              label="Telefon"
+              id="phone"
+              type="number"
+              placeholder="Telefon"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+              errorText="Unesite ispravan broj"
+            />
+
+            <Button type="submit" disabled={!formState.isValid}>
+              Zavrsi porudzbinu
+            </Button>
           </form>
         </div>
         <div className="checkout_cart">
@@ -87,11 +165,20 @@ const Checkout = () => {
 
           {cartItems.map((item) => (
             <div className="checkout_cart_item" key={item.id}>
-              <img src={item.image} alt={item.title} />
-              <h1>{item.title}</h1>
-              <span>
-                {item.totalPrice} <b>DIN</b>
-              </span>
+              <img
+                src={`http://localhost:8000/${item.image}`}
+                alt={item.title}
+              />
+
+              <div className="teks">
+                <h1>{item.title}</h1>
+                <p>
+                  {item.quantity} x {item.price}
+                </p>
+                <span>
+                  <b> {item.totalPrice} DIN</b>
+                </span>
+              </div>
             </div>
           ))}
 

@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
-
-import Input from "../../shared/components/Form/Input";
-import Button from "../../shared/components/Form/Button";
+import { AuthContext } from "../../shared/context/auth-context";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validate";
+
+import Button from "../../shared/components/Form/Button";
+import Input from "../../shared/components/Form/Input";
 import ErrorModal from "../../shared/components/UIelements/ErrorModal";
 import Loader from "../../shared/components/UIelements/Loader";
+import ImageUpload from "../../shared/components/Form/ImageUpload";
 
 const CreateProduct = () => {
+  const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
+      image: {
+        value: null,
+        isValid: false,
+      },
       title: {
         value: "",
         isValid: false,
@@ -26,6 +33,10 @@ const CreateProduct = () => {
         isValid: false,
       },
       price: {
+        value: "",
+        isValid: false,
+      },
+      category: {
         value: "",
         isValid: false,
       },
@@ -46,18 +57,18 @@ const CreateProduct = () => {
     event.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("image", formState.inputs.image.value);
+      formData.append("title", formState.inputs.title.value);
+      formData.append("description", formState.inputs.description.value);
+      formData.append("price", formState.inputs.price.value);
+      formData.append("category", formState.inputs.category.value);
+      formData.append("inStock", formState.inputs.inStock.value);
       await sendRequest(
         "http://localhost:8000/api/products/new",
         "POST",
-        JSON.stringify({
-          title: formState.inputs.title.value,
-          description: formState.inputs.description.value,
-          price: formState.inputs.price.value,
-          inStock: formState.inputs.inStock.value,
-        }),
-        {
-          "Content-Type": "application/json",
-        }
+        formData,
+        { Authorization: "Bearer " + auth.token }
       );
       navigate("/admin");
     } catch (error) {}
@@ -66,8 +77,14 @@ const CreateProduct = () => {
   return (
     <div className="main">
       <ErrorModal error={error} onClear={clearError} />
-      {isLoading && <Loader asOverlay />}
       <form className="create_form" onSubmit={productSubmitHandler}>
+        {isLoading && <Loader asOverlay />}
+        <ImageUpload
+          id="image"
+          onInput={inputHandler}
+          errorText="Unesite validnu sliku"
+        />
+
         <Input
           id="title"
           element="input"
@@ -96,6 +113,16 @@ const CreateProduct = () => {
           errorText="Unesite validnu cenu"
           placeholder="Cena Artikla"
           onInput={inputHandler}
+        />
+        <Input
+          id="category"
+          element="input"
+          type="text"
+          label="Kategorija"
+          validators={[VALIDATOR_REQUIRE()]}
+          errorText="Unesite validnu kategoriju"
+          onInput={inputHandler}
+          placeholder="Kategorija Artikla"
         />
         <Input
           id="inStock"

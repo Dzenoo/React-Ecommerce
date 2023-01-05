@@ -1,46 +1,46 @@
 .button {
-  padding: 1.3em 3em;
+  padding: 20px;
   border: none;
-  background-color: black;
+  background-color: #303030;
   color: #fff !important;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  transition: 0.3s;
   font-weight: bold;
-  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  border-radius: 34px;
 }
 
 .button:hover {
-  background-color: rgb(48, 47, 47);
+  background-color: rgb(17, 16, 16);
   transition: 0.5 !important;
   color: #fff !important;
-  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  /* -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */
+  /* clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */
 }
 
 .button--action {
-  background: #067804 !important;
+  background: #2c8e73 !important;
   color: #ffff !important;
 }
 
 .button--action:hover,
 .button--action:active {
-  background: #0e8f34 !important;
+  background: #13c8a4 !important;
   color: #fff !important;
 }
 
 .button--inverse {
   background: transparent;
-  border: 1.2px solid #314657 !important;
-  color: #cca152 !important;
+  border: 1.2px solid #303030 !important;
+  color: #303030 !important;
 }
 
 .button--inverse:hover,
 .button--inverse:active {
   color: #fff !important;
-  background: #314657 !important;
+  background: #303030 !important;
 }
 
 .button--danger {
@@ -61,4 +61,18 @@
   color: #979797;
   border-color: #ccc;
   cursor: not-allowed;
+}
+
+@media (max-width: 425px) {
+  .button {
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 324px) {
+  .button {
+    font-size: 10px;
+    font-weight: bold;
+  }
 }

@@ -19,19 +19,26 @@ const CartItem = (props) => {
 
   return (
     <div className="cart_item">
-      <img src={image} alt={title} />
+      <img src={`http://localhost:8000/${image}`} alt={title} />
       <div className="cart_item_description">
-        <h1>{title}</h1>
-        <p style={{ fontWeight: "bold" }}>{price} DIN</p>
-      </div>
-      <span className="size">{size}</span>
-      <div className="actions">
-        <button onClick={addToCart}>+</button>
-        <span className="size">{quantity}</span>
-        <button onClick={removeCartHandler}>-</button>
-      </div>
-      <div className="cart_item_totalPrice">
-        <span>{totalPrice} DIN</span>
+        <div className="text">
+          <h1>{title}</h1>
+          <p>Cena: {price} DIN</p>
+          <span>
+            Velicina: <b>{size}</b>
+          </span>
+          <br />
+          <br />
+          <span>
+            Ukupna cena: <b>{totalPrice} DIN</b>
+          </span>
+        </div>
+
+        <div className="actions">
+          <button onClick={addToCart}>+</button>
+          <span className="size">{quantity}</span>
+          <button onClick={removeCartHandler}>-</button>
+        </div>
       </div>
     </div>
   );

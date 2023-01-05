@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useForm } from "../../shared/hooks/form-hook";
-
-import Loader from "../../shared/components/UIelements/Loader";
-import Input from "../../shared/components/Form/Input";
+import { AuthContext } from "../../shared/context/auth-context";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validate";
+
+import Input from "../../shared/components/Form/Input";
+import Loader from "../../shared/components/UIelements/Loader";
 import Button from "../../shared/components/Form/Button";
 import ErrorModal from "../../shared/components/UIelements/ErrorModal";
 
 const UpdateProduct = (props) => {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedProduct, setLoadedProduct] = useState();
   const productId = useParams().productId;
@@ -31,6 +33,11 @@ const UpdateProduct = (props) => {
       },
 
       price: {
+        value: "",
+        isValid: false,
+      },
+
+      category: {
         value: "",
         isValid: false,
       },
@@ -67,6 +74,11 @@ const UpdateProduct = (props) => {
               isValid: true,
             },
 
+            category: {
+              value: responseData.product.category,
+              isValid: true,
+            },
+
             inStock: {
               value: responseData.product.inStock,
               isValid: true,
@@ -89,10 +101,12 @@ const UpdateProduct = (props) => {
           title: formState.inputs.title.value,
           description: formState.inputs.description.value,
           price: formState.inputs.price.value,
+          category: formState.inputs.category.value,
           inStock: formState.inputs.inStock.value,
         }),
         {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
         }
       );
     } catch (err) {}
@@ -158,6 +172,19 @@ const UpdateProduct = (props) => {
           />
 
           <Input
+            id="category"
+            element="input"
+            type="text"
+            label="Kategorija"
+            placeholders="Kategorija"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Unesi validnu kategoriju"
+            onInput={inputHandler}
+            initialValue={loadedProduct.category}
+            initialValid={true}
+          />
+
+          <Input
             id="inStock"
             element="input"
             type="text"
@@ -171,7 +198,7 @@ const UpdateProduct = (props) => {
           />
 
           <Button type="submit" disabled={!formState.isValid}>
-            Update
+            Izmeni
           </Button>
         </form>
       )}

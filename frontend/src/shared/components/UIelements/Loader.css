@@ -13,11 +13,8 @@
 .loader {
   width: 40px;
   height: 40px;
-  border: 8px solid;
-  border-top-color: blue;
-  border-bottom-color: blue;
-  border-left-color: transparent;
-  border-right-color: transparent;
+  border: 6px solid;
+  border-color: #303030 transparent #303030 transparent;
   border-radius: 60px;
   animation: rotate 1.2s linear infinite;
 }
