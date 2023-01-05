@@ -65,7 +65,7 @@ const CreateProduct = () => {
       formData.append("category", formState.inputs.category.value);
       formData.append("inStock", formState.inputs.inStock.value);
       await sendRequest(
-        "http://localhost:8000/api/products/new",
+        `${process.env.REACT_APP_BACKEND_URL}/products/new`,
         "POST",
         formData,
         { Authorization: "Bearer " + auth.token }

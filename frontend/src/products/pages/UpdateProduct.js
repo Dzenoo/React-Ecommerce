@@ -54,7 +54,7 @@ const UpdateProduct = (props) => {
     const fetchProducts = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:8000/api/products/${productId}`
+          `${process.env.REACT_APP_BACKEND_URL}/products/${productId}`
         );
         setLoadedProduct(responseData.product);
         setFormData(
@@ -95,7 +95,7 @@ const UpdateProduct = (props) => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:8000/api/products/${productId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/products/${productId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,

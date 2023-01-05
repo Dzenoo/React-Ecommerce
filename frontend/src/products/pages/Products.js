@@ -16,7 +16,7 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:8000/api/products/"
+          `${process.env.REACT_APP_BACKEND_URL}/products`
         );
         setLoadedProducts(responseData.products);
       } catch (err) {}
@@ -28,7 +28,7 @@ const Products = () => {
   const fetchProducts = async (category) => {
     try {
       const responseData = await sendRequest(
-        "http://localhost:8000/api/products/"
+        `${process.env.REACT_APP_BACKEND_URL}/products`
       );
       if (category) {
         const curProducts = responseData.products.filter(
