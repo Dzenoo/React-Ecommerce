@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.get("/", orderController.getOrders);
 
-router.post("/new", checkAdmin, orderController.createOrder);
+router.post("/new", orderController.createOrder);
 
-router.delete("/:oid", checkAdmin, orderController.deleteOrder);
+router.delete("/:oid",  orderController.deleteOrder);
 
 module.exports = router;
