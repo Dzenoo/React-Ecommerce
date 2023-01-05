@@ -18,13 +18,15 @@ const Home = () => {
 
   useEffect(() => {
     const fetchProd = async () => {
-      const res = await sendRequest("http://localhost:8000/api/products/");
+      const res = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/products`
+      );
       setproducts(res.products);
     };
     fetchProd();
   }, [sendRequest]);
 
-  let someProd = products.slice(0, 4);
+  let someProd = products.slice(0, 3);
 
   return (
     <>
@@ -60,7 +62,7 @@ const Home = () => {
         <div className="productList">
           {someProd.map((item) => (
             <div key={item.id} className="productItem">
-              <img src={`http://localhost:8000/${item.image}`} />
+              <img src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`} />
               <h1>{item.title}</h1>
               <p>{item.price} DIN</p>
               <Link to={auth.isLoggedIn ? "/products" : "/authenticate"}>
