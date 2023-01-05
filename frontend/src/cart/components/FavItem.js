@@ -3,7 +3,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { FavoriteActions } from "../../shared/redux/favorite-slice";
 
-import Card from "../../shared/components/UIelements/Card";
 import Button from "../../shared/components/Form/Button";
 
 import "./FavItem.css";
@@ -17,21 +16,23 @@ const FavItem = (props) => {
   };
 
   return (
-    <Card className="fav_wrapper">
-      <div className="fav_item">
-        <img src={`http://localhost:8000/${image}`} alt={title} />
-        <div className="fav_item_description">
+    <li className="fav_item">
+      <div className="item__image">
+        <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
+      </div>
+
+      <div className="fav_item_description">
+        <div>
           <h1>{title}</h1>
-          <p style={{ fontWeight: "bold" }}>{price}</p>
-          <p style={{ fontWeight: "bold" }}>{inStock}</p>
+          <p style={{ fontWeight: "bold" }}>Cena: {price}</p>
+          <p style={{ fontWeight: "bold" }}>Na stanju: {inStock}</p>
         </div>
-        <div className="fav_actions">
-          <Button danger onClick={removeFromFavorites}>
-            x
-          </Button>
+
+        <div>
+          <button onClick={removeFromFavorites}>x</button>
         </div>
       </div>
-    </Card>
+    </li>
   );
 };
 

@@ -1,31 +1,51 @@
 .fav_item {
+  max-width: 300px;
+  margin: 0;
+  border-radius: 5px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  border-bottom: 2px solid #303030;
-  padding-bottom: 20px;
+  word-break: break-word;
   background-color: #fff;
+  border-radius: 12px;
+  padding: 2em;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
-
-.fav_item img {
-  width: 100px;
-  object-fit: cover;
+.fav_item:hover {
+  box-shadow: 2px 2px 10px rgb(119, 119, 119);
+  transition: 0.4s;
+}
+.fav_item .item__image img {
+  width: 100%;
   height: auto;
 }
 
+.fav_item .fav_item_description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .fav_item .fav_item_description h1 {
-  font-size: 20px;
   color: #303030;
+  font-size: 24px;
 }
 
 .fav_item .fav_item_description p {
-  font-size: 14px;
-  line-break: anywhere;
-  color: #303030;
+  color: #339b73;
+  font-weight: bold;
+  font-style: italic;
 }
 
-.fav_item .fav_actions button {
+.fav_item .fav_item_description button {
   padding: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.fav_item .fav_item_description button:hover {
+  background-color: #339b73;
+  color: #fff;
+  transition: 0.3s;
 }

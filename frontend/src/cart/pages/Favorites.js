@@ -12,7 +12,7 @@ const Favorites = () => {
   return (
     <>
       <h1 className="center">Lista zelja</h1>
-      <div className="fav_container">
+      <ul className="fav_container">
         {favItems.length === 0 && (
           <Card className="card center">
             <h1>Lista zelja je prazna</h1>
@@ -30,7 +30,7 @@ const Favorites = () => {
               description={item.description}
             />
           ))}
-      </div>
+      </ul>
     </>
   );
 };

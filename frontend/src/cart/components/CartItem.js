@@ -19,7 +19,7 @@ const CartItem = (props) => {
 
   return (
     <div className="cart_item">
-      <img src={`http://localhost:8000/${image}`} alt={title} />
+      <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       <div className="cart_item_description">
         <div className="text">
           <h1>{title}</h1>

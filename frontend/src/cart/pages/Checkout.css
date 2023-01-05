@@ -5,11 +5,6 @@
   padding: 30px;
   flex-wrap: wrap;
   gap: 2rem;
-  background: linear-gradient(
-    to top right,
-    rgb(209, 252, 252),
-    rgb(155, 240, 212)
-  );
 }
 
 .checkout_section h1,
@@ -21,6 +16,7 @@ h2 {
 .checkout_section .checkout_form {
   background-color: #fff;
   padding: 30px;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.189);
   border-radius: 12px;
   width: 600px;
 }
@@ -39,6 +35,7 @@ h2 {
   border-radius: 12px;
   border: 1px solid rgb(253, 253, 253);
   flex-direction: column;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.189);
 }
 
 .checkout_cart h1 {
@@ -73,6 +70,7 @@ h2 {
 }
 
 .subtotal {
+  border-top: 3px solid #303030;
   background-color: #fff;
   border-radius: 12px;
   margin-top: 29px;

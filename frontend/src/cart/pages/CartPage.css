@@ -7,7 +7,6 @@
   align-items: center;
   padding: 70px;
   gap: 2em;
-  background: linear-gradient(45deg, #e6f2f5, #9ed3f9b5);
 }
 
 @media (max-width: 818px) {

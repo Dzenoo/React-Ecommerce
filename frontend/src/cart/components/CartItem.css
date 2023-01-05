@@ -1,4 +1,7 @@
 .cart_item {
+  border-bottom: 3px solid #303030;
+  box-shadow: 9px 0 9px 0 rgb(171, 171, 171);
+  border-top: 3px solid #303030;
   position: relative;
   display: flex;
   background-color: #fff;
@@ -16,6 +19,9 @@
 }
 .cart_item .cart_item_description {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
 }
 
 @media (max-width: 1057px) {
@@ -70,18 +76,3 @@
   font-weight: bold;
   font-size: 20px;
 }
-/*
-.cart_item .actions button:nth-child(1) {
-  background-color: black;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.cart_item_totalPrice {
-  display: flex;
-  font-size: 20px;
-  color: #fff;
-} */

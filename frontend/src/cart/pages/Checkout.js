@@ -4,6 +4,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validate";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import ErrorModal from "../../shared/components/UIelements/ErrorModal";
 import Loader from "../../shared/components/UIelements/Loader";
@@ -14,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Checkout.css";
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
@@ -54,7 +56,7 @@ const Checkout = () => {
 
     try {
       await sendRequest(
-        "http://localhost:8000/api/orders/new",
+        `${process.env.REACT_APP_BACKEND_URL}/orders/new`,
         "POST",
         JSON.stringify({
           name: formState.inputs.name.value,
@@ -70,8 +72,9 @@ const Checkout = () => {
         }
       );
       toast.success("Uspesno obavljena porudzbina");
+      navigate("/");
     } catch (error) {
-      toast.error("Neka greska je");
+      toast.error("Greska");
       alert(error);
     }
   };
@@ -166,18 +169,22 @@ const Checkout = () => {
           {cartItems.map((item) => (
             <div className="checkout_cart_item" key={item.id}>
               <img
-                src={`http://localhost:8000/${item.image}`}
+                src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`}
                 alt={item.title}
               />
 
               <div className="teks">
                 <h1>{item.title}</h1>
-                <p>
-                  {item.quantity} x {item.price}
-                </p>
-                <span>
-                  <b> {item.totalPrice} DIN</b>
-                </span>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "2rem" }}
+                >
+                  <p>
+                    {item.quantity} x {item.price}
+                  </p>
+                  <span>
+                    <b> {item.totalPrice} DIN</b>
+                  </span>
+                </div>
               </div>
             </div>
           ))}
