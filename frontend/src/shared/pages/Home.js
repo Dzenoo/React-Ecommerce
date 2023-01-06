@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useHttpClient } from "../hooks/http-hook";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AuthContext } from "../context/auth-context";
 import { Link } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
 
 import "./Home.css";
 import Button from "../components/Form/Button";
@@ -10,11 +11,30 @@ import image from "../assets/icon.png";
 import imagee from "../assets/ico.png";
 import Footer from "../components/Footer/Footer";
 import imag from "../assets/icoo.png";
+import img1 from "../assets/fashion__2.png";
+import img2 from "../assets/2.png";
+import img3 from "../assets/3.png";
+import swt from "../assets/ambb.png";
 
 const Home = () => {
-  const { sendRequest, isLoading, error, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const [products, setproducts] = useState([]);
   const auth = useContext(AuthContext);
+
+  // const images = [img1, img2, img3];
+  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // const [isVisible, setIsVisible] = useState(true);
+
+  // useEffect(() => {
+  //   const id = setInterval(() => {
+  //     setIsVisible(false);
+  //     setTimeout(() => {
+  //       setCurrentImageIndex((currentImageIndex + 1) % images.length);
+  //       setIsVisible(true);
+  //     }, 250);
+  //   }, 5000);
+  //   return () => clearInterval(id);
+  // }, [currentImageIndex]);
 
   useEffect(() => {
     const fetchProd = async () => {
@@ -30,18 +50,36 @@ const Home = () => {
 
   return (
     <>
-      <div className="mainpage">
+      <div
+        className="mainpage"
+        // className={`mainpage image-slider ${
+        //   isVisible ? "is-visible" : "is-hidden"
+        // }`}
+        // style={{
+        //   backgroundImage: `linear-gradient(#1a1a1bb3, #00000096),url(${images[currentImageIndex]})`,
+        // }}
+      >
         <div className="text">
           <h1>
             Super povoljne ponude <br />
             <span className="ch"> Za sve proizvode</span>
           </h1>
-          <p>Ovdje ćete pronaći širok izbor proizvoda po odličnim cijenama</p>
-          <Button to="/products">Kupi sada</Button>
+          <p>
+            Ovdje ćete pronaći širok izbor visokokvalitetnih proizvoda po
+            pristupačnim cijenama. Naš tim je posvećen pružanju odlične usluge
+            kupcima i osiguravanju da imate besprijekorno iskustvo kupovine.
+            Nudimo brzu i pouzdanu dostavu, jednostavan povrat i siguran proces
+            naplate.
+          </p>
+          <Link to="/products">Kupi sada</Link>
+        </div>
+
+        <div className="products_cart">
+          <img src={swt} />
         </div>
       </div>
 
-      <div className="after_hero">
+      <div className="after_hero animation">
         <div className="item">
           <img src={image} />
           <h1>Online naručivanje</h1>
@@ -79,10 +117,9 @@ const Home = () => {
         <div>
           <h1>Registruj se</h1>
           <p>
-            Ne zaboravite kreirati račun za pristup historiji narudžbi,
+            Ne zaboravite kreirati račun za pristup korpi,
             <br />
-            spremanje artikala na svoju listu želja i korištenje posebnih
-            popusta.
+            spremanju porudzbina i korištenje posebnih popusta.
           </p>
         </div>
 
