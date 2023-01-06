@@ -3,42 +3,93 @@ body {
 }
 
 .mainpage {
-  background-image: linear-gradient(#1a1a1bb3, #00000096),
-    url("../assets/fashion.png");
   background-repeat: no-repeat;
   background-position: center;
-  height: 90vh;
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  text-align: center;
+  animation: fade 2s ease-in-out;
+}
+
+.mainpage::before {
+  content: "";
+  width: 460px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -2;
+  background: rgba(18, 18, 18, 0.862);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 10px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 2;
+  }
+}
+
+.image-slider.is-visible {
+  opacity: 1;
+  transition: 2s;
+}
+
+.image-slider.is-hidden {
+  transition: 2s;
+  opacity: 0;
 }
 
 .mainpage .text {
-  margin: auto;
+  margin-left: 60px;
+  max-width: 800px;
+}
+
+.mainpage .text a {
+  background: #141414;
+  padding: 1.6rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.mainpage .text a:hover {
+  color: #141414;
+  background: #f3f3f3;
+  transition: 0.3s;
 }
 
 .mainpage .text h1 {
   font-size: 4rem;
-  padding-bottom: 16px;
-  color: #fff;
+  color: #000000;
 }
 
 .mainpage .text p {
   font-size: 1.3rem;
-  color: #fff;
-  padding-bottom: 16px;
-}
-
-.mainpage .text h1 {
-  font-size: 4rem;
-  padding-bottom: 16px;
+  color: #000000;
+  font-weight: bold;
+  line-height: 30px;
+  padding-bottom: 46px;
 }
 
 .mainpage .ch {
-  color: #088371;
+  color: #e1e1e1;
+}
+
+.mainpage .products_cart {
+  padding: 30px;
+}
+
+.mainpage .products_cart img {
+  width: 100%;
+  height: auto;
 }
 
 .after_hero {
@@ -57,18 +108,42 @@ body {
   border: 2px solid #fff;
   display: block;
   text-align: center;
+  padding: 2em;
+  z-index: 20;
+  border-radius: 40px;
+  position: relative;
+}
+
+.after_hero .item::before {
+  border-radius: 40px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  transition: 0.7s;
+  height: 100%;
+  background-color: #f3f3f3;
+  z-index: -2;
+  transition: 0.7s;
+}
+
+.after_hero .item:hover::before {
+  border-radius: 40px;
+  width: 100%;
 }
 
 .after_hero .item img {
   width: 80%;
+  z-index: 20;
   height: auto;
 }
 
 .after_hero .item h1 {
   padding: 12px;
   background-color: #303030;
-  border-radius: 4px;
   font-size: 20px;
+  border-radius: 40px;
   color: #fff;
 }
 
@@ -77,6 +152,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: showText 1.7s linear;
   overflow: hidden;
 }
 
@@ -97,19 +173,45 @@ body {
   flex-wrap: wrap;
   padding: 40px;
   gap: 2em;
+  animation: sliding 16s linear infinite;
+}
+
+@keyframes sliding {
+  0% {
+    transform: translateX(0);
+  }
+
+  60% {
+    transform: translateX(-16%);
+  }
+
+  100% {
+    transform: translateX(16%);
+  }
+}
+
+@media (max-width: 1540px) {
+  .productSection .productList {
+    animation-play-state: paused;
+  }
+}
+
+.productSection .productList:hover {
+  animation-play-state: paused;
 }
 
 .productSection .productItem {
   border-radius: 40px;
   display: flex;
   flex-direction: column;
+  max-width: 360px;
   padding: 20px;
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
 .productSection .productItem img {
-  width: 400px;
+  width: 100%;
   border-radius: 40px;
   height: auto;
 }
@@ -118,14 +220,14 @@ body {
   font-size: 1.7rem;
 }
 .productSection .productItem p {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
 }
 .productSection .productItem a {
-  background-color: #088371;
+  background-color: #f3f3f3;
   width: 20%;
   border-radius: 60px;
   cursor: pointer;
-  color: #fff;
+  color: #000000;
   padding: 10px;
   text-align: center;
 }
@@ -136,17 +238,17 @@ body {
   align-items: center;
   justify-content: space-around;
   padding: 60px;
-  background-color: #088371;
-  color: #fff;
+  background-color: #f3f3f3;
+  color: #000000;
 }
 
 .newsletter h1 {
-  color: #fff;
+  color: #000000;
   font-size: 44px;
 }
 
 .newsletter p {
-  color: rgb(227, 222, 222);
+  color: #000000;
   font-size: 20px;
 }
 
@@ -163,5 +265,11 @@ body {
 
   .newsletter {
     padding: 30px;
+  }
+}
+
+@media (max-width: 1438px) {
+  .mainpage::before {
+    display: none;
   }
 }
