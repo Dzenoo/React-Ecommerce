@@ -5,10 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Button from "../../shared/components/Form/Button";
 import { cartActions } from "../../shared/redux/cart-slice";
-import { FavoriteActions } from "../../shared/redux/favorite-slice";
+import { AuthContext } from "../../shared/context/auth-context";
 
 import "./ProductDetails.css";
-import { AuthContext } from "../../shared/context/auth-context";
 
 const size = [
   {
@@ -67,20 +66,6 @@ const ProductDetails = (props) => {
   const addToCart = () => {
     dispatch(cartActions.AddToCart({ id, image, title, price, option }));
     toast.success("Dodano u korpu!");
-  };
-
-  const addToFavoritesHandler = () => {
-    dispatch(
-      FavoriteActions.AddToFavorite({
-        id,
-        image,
-        title,
-        description,
-        price,
-        inStock,
-      })
-    );
-    toast.success("Dodano u listu zelja!");
   };
 
   return (
