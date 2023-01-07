@@ -11,9 +11,9 @@ import image from "../assets/icon.png";
 import imagee from "../assets/ico.png";
 import Footer from "../components/Footer/Footer";
 import imag from "../assets/icoo.png";
-import img1 from "../assets/fashion__2.png";
-import img2 from "../assets/2.png";
-import img3 from "../assets/3.png";
+// import img1 from "../assets/fashion__2.png";
+// import img2 from "../assets/2.png";
+// import img3 from "../assets/3.png";
 import swt from "../assets/ambb.png";
 
 const Home = () => {
