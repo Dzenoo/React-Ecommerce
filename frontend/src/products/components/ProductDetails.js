@@ -10,7 +10,7 @@ import { FavoriteActions } from "../../shared/redux/favorite-slice";
 import "./ProductDetails.css";
 import { AuthContext } from "../../shared/context/auth-context";
 
-const SKU = [
+const size = [
   {
     label: "XS",
     val: "XS",
@@ -101,8 +101,8 @@ const ProductDetails = (props) => {
 
         <div className="content_mid">
           <select value={option} onChange={(e) => setOption(e.target.value)}>
-            {SKU.map((size, index) => (
-              <option key={index}>{size.label}</option>
+            {size.map((si, index) => (
+              <option key={index}>{si.label}</option>
             ))}
           </select>
           <h1>{option}</h1>
