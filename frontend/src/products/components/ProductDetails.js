@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Button from "../../shared/components/Form/Button";
-import { cartActions } from "../../shared/redux/cart-slice";
 import { AuthContext } from "../../shared/context/auth-context";
+import { useHttpClient } from "../../shared/hooks/http-hook";
+import { cartActions } from "../../shared/redux/cart-slice";
+import { favActions } from "../../shared/redux/fav-slice";
 
+import Button from "../../shared/components/Form/Button";
+import "react-toastify/dist/ReactToastify.css";
 import "./ProductDetails.css";
 
-const size = [
+const SKU = [
   {
     label: "XS",
     val: "XS",
@@ -38,8 +39,11 @@ const size = [
 
 const ProductDetails = (props) => {
   const [option, setOption] = useState("S");
+  const { sendRequest, isLoading, error, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const isLoggedIn = auth.isLoggedIn;
+  const favItems = useSelector((state) => state.favs.items);
+  const cartItems = useSelector((state) => state.cart.items);
 
   const { id, title, image, description, price, category, inStock } =
     props.productDetail;
@@ -63,9 +67,35 @@ const ProductDetails = (props) => {
     }
   }
 
+  const sendToBackend = async () => {
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/favorites/add`,
+        "POST",
+        JSON.stringify({
+          favorite: favItems,
+        }),
+        {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.token,
+        }
+      );
+    } catch (err) {
+      alert(err);
+    }
+  };
+
   const addToCart = () => {
     dispatch(cartActions.AddToCart({ id, image, title, price, option }));
     toast.success("Dodano u korpu!");
+    console.log(cartItems);
+  };
+
+  const addToFavoritesHandler = async () => {
+    dispatch(favActions.AddToFav({ id, image, title, price }));
+    toast.success("Dodano u listu zelja!");
+    // sendToBackend();
+    console.log(favItems);
   };
 
   return (
@@ -83,32 +113,49 @@ const ProductDetails = (props) => {
           </div>
           <p>{description}</p>
         </div>
-
         <div className="content_mid">
           <select value={option} onChange={(e) => setOption(e.target.value)}>
-            {size.map((si, index) => (
-              <option key={index}>{si.label}</option>
+            {SKU.map((size, index) => (
+              <option key={index}>{size.label}</option>
             ))}
           </select>
           <h1>{option}</h1>
-        </div>
 
-        <div className="content_bottom">
           {isAllowedToBuy && (
             <Button to={!isLoggedIn && "/authenticate"} onClick={addToCart}>
               Dodaj u korpu
             </Button>
           )}
 
-          {isAllowedToBuy && (
-            <Button
-              to={!isLoggedIn && "/authenticate"}
-              inverse
-              onClick={addToFavoritesHandler}
-            >
-              Dodaj na listu zelja
-            </Button>
-          )}
+          <Button
+            inverse
+            to={!isLoggedIn && "/authenticate"}
+            onClick={addToFavoritesHandler}
+          >
+            Dodaj u listu zelja
+          </Button>
+        </div>
+        <div>
+          <details>
+            <summary>Besplatna dostava</summary>
+            <p>
+              Isporučite svoje artikle direktno na vaša vrata uz našu ponudu
+              besplatne dostave! Nema više brige o dodatnim troškovima dostave -
+              mi se brinemo o tome umjesto vas. Kupujte sada i dobijte besplatnu
+              isporuku kupovine za sve narudžbe iznad 6000 Din.
+            </p>
+          </details>
+
+          <details>
+            <summary>Vreme dostave</summary>
+            <p>
+              Dobijte svoju narudžbinu brzo uz našu efikasnu uslugu dostave!
+              Razumemo da želite kupovinu što je prije moguće, zato obrađujemo i
+              šaljemo vašu narudžbu u roku od 1-2 radna dana. Predviđeno vrijeme
+              isporuke za standardnu ​​dostavu je 3-4 radnih dana od datuma
+              isporuke.
+            </p>
+          </details>
         </div>
       </div>
 
