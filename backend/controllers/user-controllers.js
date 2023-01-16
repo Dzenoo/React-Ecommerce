@@ -53,6 +53,7 @@ exports.signup = async (req, res, next) => {
     email,
     password: hashedPassword,
     isAdmin: false,
+    carts: [],
   });
 
   try {
