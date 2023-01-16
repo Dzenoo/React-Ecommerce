@@ -1,37 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-import FavItem from "../components/FavItem";
-import Card from "../../shared/components/UIelements/Card";
+import { useSelector } from "react-redux";
 
 import "./Favorites.css";
 
 const Favorites = () => {
-  const favItems = useSelector((state) => state.favorite.favItems);
+  const favItems = useSelector((state) => state.favs.items);
 
   return (
-    <>
-      <h1 className="center">Lista zelja</h1>
-      <ul className="fav_container">
-        {favItems.length === 0 && (
-          <Card className="card center">
-            <h1>Lista zelja je prazna</h1>
-          </Card>
-        )}
-        {favItems.length >= 1 &&
-          favItems.map((item) => (
-            <FavItem
-              id={item.id}
-              key={item.id}
-              image={item.image}
-              title={item.title}
-              price={item.price}
-              inStock={item.inStock}
-              description={item.description}
-            />
-          ))}
-      </ul>
-    </>
+    <div className="fav_list">
+      {favItems.map((favItem) => (
+        <div key={favItem.id} className="fav_item">
+          <img
+            src={`${process.env.REACT_APP_ASSETS_URL}/${favItem.image}`}
+            alt={favItem.title}
+          />
+          <h1>{favItem.title}</h1>
+          <h1>{favItem.option}</h1>
+          <h3>{favItem.price} Din</h3>
+        </div>
+      ))}
+    </div>
   );
 };
 
