@@ -1,14 +1,18 @@
-.fav_container {
-  padding: 100px;
+.fav_list {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: center;
   gap: 2em;
+  text-align: center;
+  flex-wrap: wrap;
+  margin: auto;
+  padding: 60px;
 }
 
-.card {
-  margin: auto;
-  display: block;
-  margin-top: 30px;
+.fav_list .fav_item {
+  max-width: 600px;
+}
+
+.fav_list .fav_item img {
+  width: 100%;
 }
