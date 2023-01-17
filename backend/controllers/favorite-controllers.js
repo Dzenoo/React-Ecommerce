@@ -2,13 +2,13 @@ const { default: mongoose } = require("mongoose");
 const HttpError = require("../models/http-error");
 
 const User = require("../models/user");
-const Cart = require("../models/cart");
+const Fav = require("../models/favorite");
 
 exports.addItem = async (req, res, next) => {
   const { favorite } = req.body;
 
-  const createdFav = new Cart({
-    items: { favorite },
+  const createdFav = new Fav({
+    favorite,
     customer: req.userData.userId,
   });
 
