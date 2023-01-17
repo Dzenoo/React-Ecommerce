@@ -6,6 +6,7 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import Navigation from "./shared/components/Navbar/Navigation";
 import Loader from "./shared/components/UIelements/Loader";
 
+const Favorite = React.lazy(() => import("./cart/pages/Favorite"));
 const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
 const Cart = React.lazy(() => import("./cart/pages/CartPage"));
 const Products = React.lazy(() => import("./products/pages/Products"));
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
+          <Route path="/favorite" element={<Checkout />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:pid" element={<ProductDetail />} />
           <Route path="/error" element={<ErrorPage />} />
