@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-
 import Button from "../../shared/components/Form/Button";
 import Card from "../../shared/components/UIelements/Card";
 import CartItem from "../components/CartItem";
@@ -14,13 +13,13 @@ const CartPage = () => {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Korpa</h1>
-      <div className="cart_container">
+      <div className="cart_container animation">
+        {cartItems.length === 0 && (
+          <Card style={{ textAlign: "center", margin: "auto" }}>
+            <p> Korpa je prazna</p>
+          </Card>
+        )}
         <div className="cart_wrapper">
-          {cartItems.length === 0 && (
-            <Card style={{ textAlign: "center", margin: "auto" }}>
-              Korpa je prazna
-            </Card>
-          )}
           {cartItems.length >= 1 &&
             cartItems.map((item) => (
               <CartItem

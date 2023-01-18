@@ -4,7 +4,6 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validate";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 import ErrorModal from "../../shared/components/UIelements/ErrorModal";
 import Loader from "../../shared/components/UIelements/Loader";
@@ -15,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Checkout.css";
 
 const Checkout = () => {
-  const navigate = useNavigate();
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
@@ -71,17 +69,16 @@ const Checkout = () => {
           "Content-Type": "application/json",
         }
       );
-      toast.success("Uspesno obavljena porudzbina");
-      navigate("/");
+      toast.success("Uspesno obavljena porudzbina!");
     } catch (error) {
-      toast.error("Greska");
+      toast.error("Nesto nije u redu");
       alert(error);
     }
   };
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Checkout</h1>
+      <h1 style={{ textAlign: "center" }}>Placanje</h1>
       <ToastContainer />
       <div className="checkout_section">
         <ErrorModal error={error} onClear={clearError} />
@@ -157,6 +154,13 @@ const Checkout = () => {
               onInput={inputHandler}
               errorText="Unesite ispravan broj"
             />
+
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <label for="vehicle1" style={{ fontSize: "20px" }}>
+              Placanje pouzecem
+            </label>
+            <br />
+            <br />
 
             <Button type="submit" disabled={!formState.isValid}>
               Zavrsi porudzbinu
