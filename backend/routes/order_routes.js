@@ -9,6 +9,6 @@ router.get("/", orderController.getOrders);
 
 router.post("/new", orderController.createOrder);
 
-router.delete("/:oid",  orderController.deleteOrder);
+router.delete("/:oid", checkAdmin, orderController.deleteOrder);
 
 module.exports = router;
