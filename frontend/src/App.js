@@ -6,9 +6,9 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import Navigation from "./shared/components/Navbar/Navigation";
 import Loader from "./shared/components/UIelements/Loader";
 
-const Favorite = React.lazy(() => import("./cart/pages/Favorite"));
-const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
 const Cart = React.lazy(() => import("./cart/pages/CartPage"));
+const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
+const Favorites = React.lazy(() => import("./cart/pages/Favorites"));
 const Products = React.lazy(() => import("./products/pages/Products"));
 const AdminPanel = React.lazy(() => import("./admin/pages/AdminPanel"));
 const Home = React.lazy(() => import("./shared/pages/Home"));
@@ -38,9 +38,9 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:pid" element={<ProductDetail />} />
           <Route path="/error" element={<ErrorPage />} />
-          <Route path="/da" element={<AdminPanel />} />
-          <Route path="/da/new" element={<CreateProduct />} />
-          <Route path="/da/:productId" element={<UpdateProduct />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/new" element={<CreateProduct />} />
+          <Route path="/admin/:productId" element={<UpdateProduct />} />
           <Route path="*" element={<Navigate to="/" />} />
         </>
       );
@@ -49,8 +49,8 @@ function App() {
         <>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/:userId/favorites" element={<Favorites />} />
           <Route path="/cart/checkout" element={<Checkout />} />
-          <Route path="/favorite" element={<Checkout />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:pid" element={<ProductDetail />} />
           <Route path="/error" element={<ErrorPage />} />
