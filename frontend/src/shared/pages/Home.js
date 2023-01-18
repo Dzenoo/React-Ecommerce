@@ -3,38 +3,19 @@ import { useHttpClient } from "../hooks/http-hook";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AuthContext } from "../context/auth-context";
 import { Link } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 
 import "./Home.css";
 import Button from "../components/Form/Button";
-import image from "../assets/icon.png";
-import imagee from "../assets/ico.png";
+import image from "../assets/ft.png";
+import imagee from "../assets/fte.png";
+import imag from "../assets/ftt.png";
 import Footer from "../components/Footer/Footer";
-import imag from "../assets/icoo.png";
-// import img1 from "../assets/fashion__2.png";
-// import img2 from "../assets/2.png";
-// import img3 from "../assets/3.png";
-import swt from "../assets/ambb.png";
+import sweater from "../assets/zmp.png";
 
 const Home = () => {
   const { sendRequest } = useHttpClient();
   const [products, setproducts] = useState([]);
   const auth = useContext(AuthContext);
-
-  // const images = [img1, img2, img3];
-  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  // const [isVisible, setIsVisible] = useState(true);
-
-  // useEffect(() => {
-  //   const id = setInterval(() => {
-  //     setIsVisible(false);
-  //     setTimeout(() => {
-  //       setCurrentImageIndex((currentImageIndex + 1) % images.length);
-  //       setIsVisible(true);
-  //     }, 250);
-  //   }, 5000);
-  //   return () => clearInterval(id);
-  // }, [currentImageIndex]);
 
   useEffect(() => {
     const fetchProd = async () => {
@@ -50,15 +31,7 @@ const Home = () => {
 
   return (
     <>
-      <div
-        className="mainpage"
-        // className={`mainpage image-slider ${
-        //   isVisible ? "is-visible" : "is-hidden"
-        // }`}
-        // style={{
-        //   backgroundImage: `linear-gradient(#1a1a1bb3, #00000096),url(${images[currentImageIndex]})`,
-        // }}
-      >
+      <div className="mainpage">
         <div className="text">
           <h1>
             Super povoljne ponude <br />
@@ -75,7 +48,7 @@ const Home = () => {
         </div>
 
         <div className="products_cart">
-          <img src={swt} />
+          <img src={sweater} />
         </div>
       </div>
 
@@ -99,7 +72,7 @@ const Home = () => {
         <p>Zimska kolekcija</p>
         <div className="productList">
           {someProd.map((item) => (
-            <div key={item.id} className="productItem">
+            <div key={item._id} className="productItem">
               <img src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`} />
               <h1>{item.title}</h1>
               <p>{item.price} DIN</p>

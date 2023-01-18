@@ -7,6 +7,7 @@ import Backdrop from "../UIelements/Backdrop";
 import { BiMenuAltLeft } from "react-icons/bi";
 import logo from "../../assets/logo.png";
 import "./Navigation.css";
+import { Link } from "react-router-dom";
 
 const Navigation = (props) => {
   const [navIsOpen, setNavIsOpen] = useState(false);
@@ -25,7 +26,11 @@ const Navigation = (props) => {
       <button className="btn">
         <BiMenuAltLeft cursor="pointer" onClick={openNav} />
       </button>
-      <img src={logo} />
+
+      <Link to="/">
+        <img src={logo} />
+      </Link>
+
       <div className="nav">
         <NavLinks name={props.name} />
       </div>

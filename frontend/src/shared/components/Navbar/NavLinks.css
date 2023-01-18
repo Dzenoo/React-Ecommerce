@@ -1,7 +1,7 @@
 .menu {
   list-style: none;
   display: flex;
-  gap: 0px;
+  gap: 2rem;
   align-items: center;
   justify-content: space-around;
 }
@@ -13,16 +13,7 @@
   text-decoration: none;
   color: #303030;
   font-weight: 600;
-  padding: 1em 2em;
-}
-
-.menu a:hover,
-.menu a:active,
-.menu a.active {
-  transition: 0.4s !important;
-  color: white;
-  border-radius: 40px;
-  background-color: #303030;
+  font-size: 20px;
 }
 
 .menu_links {
@@ -53,10 +44,10 @@
 }
 
 .bar span {
-  background-color: #314657;
+  background-color: #222222;
   border-radius: 60px;
   height: 10px;
-  padding: 6px;
+  padding: 8px;
   display: flex;
   align-items: center;
   font-weight: bold;
@@ -73,13 +64,13 @@
 
   .menu {
     flex-direction: column;
-    margin-top: 30vh;
     gap: 3rem;
+    margin-right: 60px;
   }
 
   .menu li a {
     text-decoration: none;
-    color: #fff;
+    color: #303030;
     font-weight: 600;
   }
 }

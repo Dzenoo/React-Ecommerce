@@ -9,24 +9,26 @@ const FavoritesSlice = createSlice({
       const existingItem = state.items.find((item) => item.id === newItem.id);
 
       if (!existingItem) {
-        state.items = [
-          ...state.items,
-          {
-            id: newItem.id,
-            image: newItem.image,
-            title: newItem.title,
-            price: newItem.price,
-            quantity: 1,
-            totalPrice: newItem.price,
-            option: newItem.option,
-          },
-        ];
+        return {
+          ...state,
+          items: [
+            ...state.items,
+            {
+              id: newItem.id,
+              image: newItem.image,
+              title: newItem.title,
+              price: newItem.price,
+            },
+          ],
+        };
       }
     },
-
     RemoveFromFav(state, action) {
       const id = action.payload;
-      state.items = [...state.items.filter((item) => item.id !== id)];
+      return {
+        ...state,
+        items: [...state.items.filter((item) => item.id !== id)],
+      };
     },
   },
 });

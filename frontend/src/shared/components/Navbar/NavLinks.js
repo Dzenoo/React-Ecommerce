@@ -1,13 +1,11 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { AiFillStar } from "react-icons/ai";
+import { Link, NavLink } from "react-router-dom";
+import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { AuthContext } from "../../context/auth-context";
 
 import Button from "../Form/Button";
-
 import "./NavLinks.css";
-import { AuthContext } from "../../context/auth-context";
 
 const NavLinks = (props) => {
   const totalQty = useSelector((state) => state.cart.totalQuantity);
@@ -16,11 +14,17 @@ const NavLinks = (props) => {
 
   const logout = () => {
     auth.logout();
+    localStorage.removeItem("cart");
+    localStorage.removeItem("subTotal");
   };
 
   return (
     <>
-   
+      {isLoggedIn && (
+        <NavLink to="/admin" className="hide">
+          ad
+        </NavLink>
+      )}
       <ul className="menu">
         {/* Always Reachable */}
         <li>
@@ -43,9 +47,12 @@ const NavLinks = (props) => {
 
         {isLoggedIn && (
           <li className="bar">
-            <NavLink to="/favorites" style={{ textDecoration: "none" }}>
-              <AiFillStar />
-            </NavLink>
+            <Link
+              to={`/${auth.userId}/favorites`}
+              style={{ textDecoration: "none" }}
+            >
+              <AiOutlineHeart />
+            </Link>
           </li>
         )}
 

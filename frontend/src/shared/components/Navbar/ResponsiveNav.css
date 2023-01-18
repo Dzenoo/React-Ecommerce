@@ -5,7 +5,7 @@
   bottom: 0;
   z-index: 100;
   width: 70%;
-  background: #363637;
+  background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   overflow-y: scroll;
 }

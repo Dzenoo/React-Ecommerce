@@ -1,7 +1,7 @@
 .button {
   padding: 20px;
   border: none;
-  background-color: #303030;
+  background-color: #222222;
   color: #fff !important;
   cursor: pointer;
   text-decoration: none;
@@ -13,11 +13,9 @@
 }
 
 .button:hover {
-  background-color: rgb(17, 16, 16);
+  background-color: #434242;
   transition: 0.5 !important;
   color: #fff !important;
-  /* -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */
-  /* clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */
 }
 
 .button--action {
@@ -33,14 +31,14 @@
 
 .button--inverse {
   background: transparent;
-  border: 1.2px solid #303030 !important;
-  color: #303030 !important;
+  border: 1.2px solid #434242 !important;
+  color: #434242 !important;
 }
 
 .button--inverse:hover,
 .button--inverse:active {
   color: #fff !important;
-  background: #303030 !important;
+  background: #222222 !important;
 }
 
 .button--danger {
