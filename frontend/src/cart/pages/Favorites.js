@@ -31,7 +31,15 @@ const Favorites = () => {
         "DELETE",
         null
       );
+
+      onDeleteHandler(id);
     } catch (err) {}
+  };
+
+  const onDeleteHandler = (currId) => {
+    setLoadedFavorites((prevFav) => {
+      return prevFav.filter((f) => f._id !== currId);
+    });
   };
 
   return (
