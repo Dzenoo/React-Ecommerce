@@ -39,13 +39,6 @@ exports.addItem = async (req, res, next) => {
     return next(new HttpError("Nevazeci unosi", 422));
   }
 
-  const createdFav = new Favorite({
-    title,
-    image,
-    price,
-    customer: req.userData.userId,
-  });
-
   let user;
   try {
     user = await User.findById(req.userData.userId);
@@ -62,6 +55,13 @@ exports.addItem = async (req, res, next) => {
     return next(error);
   }
 
+  const createdFav = new Favorite({
+    title,
+    image,
+    price,
+    customer: req.userData.userId,
+  });
+
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -75,6 +75,7 @@ exports.addItem = async (req, res, next) => {
   }
 
   res.status(201).json({ fav: createdFav });
+  k;
 };
 
 exports.deleteItem = async (req, res, next) => {
@@ -93,13 +94,6 @@ exports.deleteItem = async (req, res, next) => {
     return next(error);
   }
 
-  if (favorite.customer.id !== req.userData.userId) {
-    const error = new HttpError("You are not allowed to delete this fav");
-    return next(error);
-  }
-
-  const imagePath = favorite.image;
-
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -111,10 +105,6 @@ exports.deleteItem = async (req, res, next) => {
     const error = new HttpError("Could not delete fav, please try again.", 500);
     return next(error);
   }
-
-  fs.unlink(imagePath, (err) => {
-    console.log(err);
-  });
 
   res.json({ message: "Todo deleted..." });
 };
