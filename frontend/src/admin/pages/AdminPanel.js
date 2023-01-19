@@ -88,9 +88,10 @@ const AdminPanel = () => {
   return (
     <>
       <div className="admin_wrapper">
-        <div className="admin__center">
+        <div className="admin__center animation">
           <div className="flex">
             <h1>Artikli</h1>
+            <h2>Ukupno artikala: {products.length}</h2>
             <Button action to="/admin/new">
               <AiOutlineFolderAdd />
               Dodaj Artikal
@@ -131,8 +132,9 @@ const AdminPanel = () => {
           {/* ORDERS */}
           <div className="flex">
             <h1>Porudzbine</h1>
+            <h2>Ukupno porudzbina {orders.length}</h2>
           </div>
-          <div className="orders_section">
+          <div className="orders_section animation_fast">
             {orders.map((order) => (
               <div key={order._id} className="naslovi">
                 <Button danger onClick={() => deleteOrderHandler(order._id)}>

@@ -61,7 +61,7 @@ const AdminProductItem = (props) => {
       </Modal>
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <Loader asOverlay />}
-      <div className="product_item" key={_id}>
+      <div className="product_item animation_fast" key={_id}>
         <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
 
         <div className="text">
@@ -84,7 +84,7 @@ const AdminProductItem = (props) => {
         </div>
 
         <div className="btns">
-          <Button action to={`/da/${_id}`}>
+          <Button action to={`/admin/${_id}`}>
             <AiFillEdit />
             Izmeni
           </Button>
