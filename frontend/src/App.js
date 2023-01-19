@@ -96,4 +96,5 @@ function App() {
     </AuthContext.Provider>
   );
 }
+
 export default App;
