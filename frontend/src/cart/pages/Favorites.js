@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import { useSelector } from "react-redux";
+import { AuthContext } from "../../shared/context/auth-context";
+
+import Button from "../../shared/components/Form/Button";
+import ErrorModal from "../../shared/components/UIelements/ErrorModal";
+import Loader from "../../shared/components/UIelements/Loader";
+import Card from "../../shared/components/UIelements/Card";
 
 import "./Favorites.css";
-import { useParams } from "react-router-dom";
 
 const Favorites = () => {
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
   const [loadedFavorites, setLoadedFavorites] = useState([]);
+  const auth = useContext(AuthContext);
   const userId = useParams().userId;
 
   useEffect(() => {
@@ -29,7 +34,10 @@ const Favorites = () => {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/favorites/${id}`,
         "DELETE",
-        null
+        null,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
       );
 
       onDeleteHandler(id);
@@ -44,18 +52,30 @@ const Favorites = () => {
 
   return (
     <div className="fav_list">
-      {loadedFavorites.map((favItem) => (
-        <div key={favItem.id} className="fav_item">
-          <img
-            src={`${process.env.REACT_APP_ASSETS_URL}/${favItem.image}`}
-            alt={favItem.title}
-          />
-          <h1>{favItem.title}</h1>
-          <h3>{favItem.price} Din</h3>
+      <ErrorModal error={error} onCancel={clearError} />
 
-          <button onClick={() => deleteItemHandler(favItem.id)}>Ukloni</button>
-        </div>
-      ))}
+      {loadedFavorites.length === 0 && (
+        <Card style={{ textAlign: "center", margin: "auto" }}>
+          <p>Lista zelja je prazna</p>
+        </Card>
+      )}
+
+      {loadedFavorites.length >= 1 &&
+        loadedFavorites.map((favItem) => (
+          <div key={favItem.id} className="fav_item">
+            {isLoading && <Loader />}
+            <img
+              src={`${process.env.REACT_APP_ASSETS_URL}/${favItem.image}`}
+              alt={favItem.title}
+            />
+            <h1>{favItem.title}</h1>
+            <h3>{favItem.price} Din</h3>
+
+            <Button onClick={() => deleteItemHandler(favItem.id)}>
+              Ukloni
+            </Button>
+          </div>
+        ))}
     </div>
   );
 };
