@@ -37,7 +37,7 @@ const Navigation = (props) => {
 
       {/* Responsive Navigation */}
       {navIsOpen && <Backdrop onClick={closeNav} />}
-      <ResponsiveNav show={navIsOpen}>
+      <ResponsiveNav show={navIsOpen} onClick={closeNav}>
         <img src={logo} />
         <NavLinks name={props.name} />
       </ResponsiveNav>

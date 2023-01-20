@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { AuthContext } from "../../context/auth-context";
 
@@ -11,9 +11,11 @@ const NavLinks = (props) => {
   const totalQty = useSelector((state) => state.cart.totalQuantity);
   const auth = useContext(AuthContext);
   const isLoggedIn = auth.isLoggedIn;
+  const navigate = useNavigate();
 
   const logout = () => {
     auth.logout();
+    navigate("/");
     localStorage.removeItem("cart");
     localStorage.removeItem("subTotal");
   };
