@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { cartActions } from "../../shared/redux/cart-slice";
-import { favActions } from "../../shared/redux/fav-slice";
 
 import Button from "../../shared/components/Form/Button";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,11 +38,9 @@ const SKU = [
 
 const ProductDetails = (props) => {
   const [option, setOption] = useState("S");
-  const { sendRequest, isLoading, error, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const isLoggedIn = auth.isLoggedIn;
-  const favItems = useSelector((state) => state.favs.items);
-  const cartItems = useSelector((state) => state.cart.items);
 
   const { id, title, image, description, price, category, inStock } =
     props.productDetail;
@@ -67,35 +64,24 @@ const ProductDetails = (props) => {
     }
   }
 
+  const addToCart = () => {
+    dispatch(cartActions.AddToCart({ id, image, title, price, option }));
+    toast.success("Dodano u korpu!");
+  };
+
   const sendToBackend = async () => {
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/favorites/add`,
         "POST",
-        JSON.stringify({
-          favorite: favItems,
-        }),
+        JSON.stringify({ title, image, price }),
         {
           "Content-Type": "application/json",
           Authorization: "Bearer " + auth.token,
         }
       );
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const addToCart = () => {
-    dispatch(cartActions.AddToCart({ id, image, title, price, option }));
-    toast.success("Dodano u korpu!");
-    console.log(cartItems);
-  };
-
-  const addToFavoritesHandler = async () => {
-    dispatch(favActions.AddToFav({ id, image, title, price }));
-    toast.success("Dodano u listu zelja!");
-    // sendToBackend();
-    console.log(favItems);
+      toast.success("Dodano u listu zelja!");
+    } catch (err) {}
   };
 
   return (
@@ -109,7 +95,7 @@ const ProductDetails = (props) => {
           <span>{category}</span>
           <h1>{title}</h1>
           <div style={{ display: "flex", alignItems: "center", gap: "2em" }}>
-            <span>{price} DIN</span> |{isInStock}
+            <span>{price} DIN</span> | {isInStock}
           </div>
           <p>{description}</p>
         </div>
@@ -130,7 +116,7 @@ const ProductDetails = (props) => {
           <Button
             inverse
             to={!isLoggedIn && "/authenticate"}
-            onClick={addToFavoritesHandler}
+            onClick={sendToBackend}
           >
             Dodaj u listu zelja
           </Button>
