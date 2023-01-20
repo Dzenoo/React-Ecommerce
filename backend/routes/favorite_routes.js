@@ -7,17 +7,17 @@ const router = express.Router();
 
 router.get("/:uid", favoriteControllers.getItemByUserId);
 
-router.delete("/:fid", favoriteControllers.deleteItem);
-
 router.post(
   "/add",
   checkAuth,
   [
-    check("title").notEmpty(),
-    check("image").notEmpty(),
-    check("price").notEmpty(),
+    check("title").not().isEmpty(),
+    check("image").not().isEmpty(),
+    check("price").not().isEmpty(),
   ],
   favoriteControllers.addItem
 );
+
+router.delete("/:fid", checkAuth, favoriteControllers.deleteItem);
 
 module.exports = router;
