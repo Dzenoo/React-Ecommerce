@@ -1,7 +1,6 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
 const HttpError = require("../models/http-error");
-const fs = require("fs");
 
 const User = require("../models/user");
 const Favorite = require("../models/favproduct");
@@ -32,18 +31,27 @@ exports.getItemByUserId = async (req, res, next) => {
 };
 
 exports.addItem = async (req, res, next) => {
-  const { title, image, price } = req.body;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(new HttpError("Nevazeci unosi", 422));
+    return next(
+      new HttpError("Invalid inputs passed, please check your data.", 422)
+    );
   }
+
+  const { title, image, price } = req.body;
+
+  const createdFav = new Favorite({
+    title,
+    image,
+    price,
+    customer: req.userData.userId,
+  });
 
   let user;
   try {
     user = await User.findById(req.userData.userId);
   } catch (err) {
-    const error = new HttpError("Adding to fav failed, please try again.", 500);
+    const error = new HttpError("Adding to fav failed, please try again", 500);
     return next(error);
   }
 
@@ -55,13 +63,6 @@ exports.addItem = async (req, res, next) => {
     return next(error);
   }
 
-  const createdFav = new Favorite({
-    title,
-    image,
-    price,
-    customer: req.userData.userId,
-  });
-
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
@@ -69,13 +70,13 @@ exports.addItem = async (req, res, next) => {
     user.favorites.push(createdFav);
     await user.save({ session: sess });
     await sess.commitTransaction();
+    sess.endSession();
   } catch (err) {
-    const error = new HttpError("Adding to fav failed, please try again.", 500);
+    const error = new HttpError("Adding to fav failed.", 500);
     return next(error);
   }
 
   res.status(201).json({ fav: createdFav });
-  k;
 };
 
 exports.deleteItem = async (req, res, next) => {
@@ -101,10 +102,11 @@ exports.deleteItem = async (req, res, next) => {
     favorite.customer.favorites.pull(favorite);
     await favorite.customer.save({ session: sess });
     await sess.commitTransaction();
+    sess.endSession();
   } catch (err) {
     const error = new HttpError("Could not delete fav, please try again.", 500);
     return next(error);
   }
 
-  res.json({ message: "Todo deleted..." });
+  res.json({ message: "Favorite deleted..." });
 };
