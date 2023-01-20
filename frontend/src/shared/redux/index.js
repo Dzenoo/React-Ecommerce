@@ -6,7 +6,6 @@ import FavoritesSlice from "./fav-slice";
 const store = configureStore({
   reducer: {
     cart: CartSlice.reducer,
-    favs: FavoritesSlice.reducer,
   },
 });
 
