@@ -38,9 +38,9 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:pid" element={<ProductDetail />} />
           <Route path="/error" element={<ErrorPage />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/admin/new" element={<CreateProduct />} />
-          <Route path="/admin/:productId" element={<UpdateProduct />} />
+          <Route path="/dm" element={<AdminPanel />} />
+          <Route path="/dm/new" element={<CreateProduct />} />
+          <Route path="/dm/:productId" element={<UpdateProduct />} />
           <Route path="*" element={<Navigate to="/" />} />
         </>
       );
