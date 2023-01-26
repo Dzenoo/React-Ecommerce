@@ -4,10 +4,11 @@ import ProductItem from "./ProductItem";
 
 import "./ProductList.css";
 
-const ProductList = (props) => {
+// Product card wrapper
+const ProductList = ({ products }) => {
   return (
     <ul className="list">
-      {props.products.map((product) => (
+      {products.map((product) => (
         <ProductItem
           key={product._id}
           id={product._id}

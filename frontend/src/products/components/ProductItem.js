@@ -3,6 +3,7 @@ import React from "react";
 import Button from "../../shared/components/Form/Button";
 import "./ProductItem.css";
 
+// Product card
 const ProductItem = (props) => {
   const { id, image, title, price, category } = props;
 

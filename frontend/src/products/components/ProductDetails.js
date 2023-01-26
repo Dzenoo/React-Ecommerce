@@ -4,71 +4,54 @@ import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { cartActions } from "../../shared/redux/cart-slice";
+import { Size } from "../../shared/data/Helpers";
 
 import Button from "../../shared/components/Form/Button";
 import "react-toastify/dist/ReactToastify.css";
 import "./ProductDetails.css";
 
-const SKU = [
-  {
-    label: "XS",
-    val: "XS",
-  },
-  {
-    label: "S",
-    val: "S",
-  },
-  {
-    label: "M",
-    val: "M",
-  },
-  {
-    label: "L",
-    val: "L",
-  },
-  {
-    label: "XL",
-    val: "XL",
-  },
-  {
-    label: "XXL",
-    val: "XXL",
-  },
-];
-
 const ProductDetails = (props) => {
+  // Initial Size
   const [option, setOption] = useState("S");
+  // Get object from http custom hook
   const { sendRequest } = useHttpClient();
+  // Get auth object from context
   const auth = useContext(AuthContext);
+  // Check if user is logged in from the auth object
   const isLoggedIn = auth.isLoggedIn;
 
+  // Getting product details
   const { id, title, image, description, price, category, inStock } =
     props.productDetail;
 
   const dispatch = useDispatch();
 
+  // Define variables for check product is inStock and if its allowed to buy
   let isInStock;
   let isAllowedToBuy = false;
 
   switch (inStock) {
+    // If inStock value is "ne" then disable button to add to cart and favorites
     case "ne":
       {
         isInStock = <h4 className="stc-red">Nije na stanju</h4>;
         isAllowedToBuy = false;
       }
       break;
-
+    // If inStock value is "da" then enable button to add to cart and favorites
     case "da": {
       isInStock = <h4 className="stc-green">Na stanju</h4>;
       isAllowedToBuy = true;
     }
   }
 
+  // Redux function for adding to cart
   const addToCart = () => {
     dispatch(cartActions.AddToCart({ id, image, title, price, option }));
     toast.success("Dodano u korpu!");
   };
 
+  // Function for adding favorites
   const sendToBackend = async () => {
     try {
       await sendRequest(
@@ -101,7 +84,7 @@ const ProductDetails = (props) => {
         </div>
         <div className="content_mid">
           <select value={option} onChange={(e) => setOption(e.target.value)}>
-            {SKU.map((size, index) => (
+            {Size.map((size, index) => (
               <option key={index}>{size.label}</option>
             ))}
           </select>
