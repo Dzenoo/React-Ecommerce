@@ -3,14 +3,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { FavoriteActions } from "../../shared/redux/favorite-slice";
 
-import Button from "../../shared/components/Form/Button";
-
 import "./FavItem.css";
 
 const FavItem = (props) => {
+  // Get product details from props from the Favorites page
   const { id, image, title, price, inStock } = props;
   const dispatch = useDispatch();
 
+  // Remove product from favorites
   const removeFromFavorites = () => {
     dispatch(FavoriteActions.RemoveFromFavorite(id));
   };

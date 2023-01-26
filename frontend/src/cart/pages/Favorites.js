@@ -11,11 +11,16 @@ import Card from "../../shared/components/UIelements/Card";
 import "./Favorites.css";
 
 const Favorites = () => {
+  // Get http properties from custom hook (useHttp)
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
+  // Get favorites
   const [loadedFavorites, setLoadedFavorites] = useState([]);
+  // Get auth object from context
   const auth = useContext(AuthContext);
+  // User id from params
   const userId = useParams().userId;
 
+  // Fetching handler
   useEffect(() => {
     const fetchUserFavorites = async () => {
       try {
@@ -29,6 +34,7 @@ const Favorites = () => {
     fetchUserFavorites();
   }, [sendRequest, userId]);
 
+  // Function for removing product from favorites
   const deleteItemHandler = async (id) => {
     try {
       await sendRequest(
@@ -44,6 +50,7 @@ const Favorites = () => {
     } catch (err) {}
   };
 
+  // Removing product from the page also
   const onDeleteHandler = (currId) => {
     setLoadedFavorites((prevFav) => {
       return prevFav.filter((f) => f._id !== currId);
@@ -54,11 +61,14 @@ const Favorites = () => {
     <div className="fav_list">
       <ErrorModal error={error} onCancel={clearError} />
 
+      {/* If favorites is empty */}
       {loadedFavorites.length === 0 && (
         <Card style={{ textAlign: "center", margin: "auto" }}>
           <p>Lista zelja je prazna</p>
         </Card>
       )}
+
+      {/* If favorites isn't empty */}
 
       {loadedFavorites.length >= 1 &&
         loadedFavorites.map((favItem) => (

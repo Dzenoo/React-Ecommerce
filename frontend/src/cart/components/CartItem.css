@@ -22,22 +22,6 @@
   margin: auto;
 }
 
-@media (max-width: 1057px) {
-  .cart_item {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 425px) {
-  .cart_item img {
-    width: 100%;
-  }
-
-  .cart_item {
-    padding: 20px;
-  }
-}
-
 .cart_item .cart_item_description h1 {
   color: #222222;
 }
@@ -73,4 +57,20 @@
   color: #fff;
   font-weight: bold;
   font-size: 20px;
+}
+
+@media (max-width: 1057px) {
+  .cart_item {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .cart_item img {
+    width: 100%;
+  }
+
+  .cart_item {
+    padding: 20px;
+  }
 }

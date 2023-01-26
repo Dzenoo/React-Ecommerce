@@ -9,13 +9,6 @@
   gap: 2em;
 }
 
-@media (max-width: 818px) {
-  .cart_wrapper {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2em;
-  }
-}
-
 .desc {
   display: flex;
   justify-content: space-between;
@@ -27,4 +20,11 @@
   justify-content: flex-end;
   gap: 2em;
   padding: 30px;
+}
+
+@media (max-width: 818px) {
+  .cart_wrapper {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2em;
+  }
 }

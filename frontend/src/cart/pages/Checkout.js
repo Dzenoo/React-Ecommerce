@@ -14,7 +14,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Checkout.css";
 
 const Checkout = () => {
+  // Get http properties from custom hook (useHttp)
   const { sendRequest, isLoading, error, clearError } = useHttpClient();
+
+  // Get form handling properties from custom hook (useForm)
+  // Initialy form validity is set to false
   const [formState, inputHandler] = useForm(
     {
       name: {
@@ -46,9 +50,12 @@ const Checkout = () => {
     },
     false
   );
+
+  // Get cart items and subtotal from redux
   const cartItems = useSelector((state) => state.cart.items);
   const subTotal = useSelector((state) => state.cart.subTotal);
 
+  // Process checkout function
   const checkOrderCartHandler = async (event) => {
     event.preventDefault();
 
@@ -56,6 +63,7 @@ const Checkout = () => {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/orders/new`,
         "POST",
+        // Send to backend user information and current cart items
         JSON.stringify({
           name: formState.inputs.name.value,
           surname: formState.inputs.surname.value,
@@ -71,7 +79,7 @@ const Checkout = () => {
       );
       toast.success("Uspesno obavljena porudzbina!");
     } catch (error) {
-      toast.error("Nesto nije u redu");
+      toast.error("Porudzbina se ne moze obaviti. Pokusajte ponovo kasnije");
       alert(error);
     }
   };
@@ -81,8 +89,11 @@ const Checkout = () => {
       <h1 style={{ textAlign: "center" }}>Placanje</h1>
       <ToastContainer />
       <div className="checkout_section">
+        {/* Http handling loading and possible errors */}
         <ErrorModal error={error} onClear={clearError} />
         {isLoading && <Loader asOverlay />}
+
+        {/* Show form */}
         <div className="checkout_form">
           <h1>Detalji porudzbine</h1>
           <hr />
@@ -167,9 +178,9 @@ const Checkout = () => {
             </Button>
           </form>
         </div>
+        {/* Show cart items */}
         <div className="checkout_cart">
           <h1>Porudzbina</h1>
-
           {cartItems.map((item) => (
             <div className="checkout_cart_item" key={item.id}>
               <img
@@ -193,6 +204,7 @@ const Checkout = () => {
             </div>
           ))}
 
+          {/* Show subtotal  */}
           <div className="subtotal">
             <h1>Ukupno:</h1>
             <h2>{subTotal} DIN</h2>

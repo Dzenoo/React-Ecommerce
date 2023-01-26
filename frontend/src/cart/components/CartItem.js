@@ -6,13 +6,16 @@ import { cartActions } from "../../shared/redux/cart-slice";
 import "./CartItem.css";
 
 const CartItem = (props) => {
+  // Get product details from props from the Product Detail page
   const { id, image, title, price, totalPrice, quantity, size } = props;
   const dispatch = useDispatch();
 
+  // Add product to cart with redux functionality
   const addToCart = () => {
     dispatch(cartActions.AddToCart({ id, title, price }));
   };
 
+  // Remove product from cart with redux
   const removeCartHandler = () => {
     dispatch(cartActions.RemoveFromCart(id));
   };
