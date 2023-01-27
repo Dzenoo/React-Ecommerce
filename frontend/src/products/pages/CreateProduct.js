@@ -15,9 +15,12 @@ import Loader from "../../shared/components/UIelements/Loader";
 import ImageUpload from "../../shared/components/Form/ImageUpload";
 
 const CreateProduct = () => {
-  const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  // Get auth status from context
+  const auth = useContext(AuthContext);
+  // Get http methods from custom http hook
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // Get form handling functions from custom form hook
   const [formState, inputHandler] = useForm(
     {
       image: {
@@ -53,9 +56,10 @@ const CreateProduct = () => {
     formIsValid = true;
   }
 
+  // Create product handler
   const productSubmitHandler = async (event) => {
     event.preventDefault();
-
+    // Send formData to backend
     try {
       const formData = new FormData();
       formData.append("image", formState.inputs.image.value);
@@ -70,7 +74,7 @@ const CreateProduct = () => {
         formData,
         { Authorization: "Bearer " + auth.token }
       );
-      navigate("/admin");
+      navigate("/dm");
     } catch (error) {}
   };
 
@@ -84,7 +88,6 @@ const CreateProduct = () => {
           onInput={inputHandler}
           errorText="Unesite validnu sliku"
         />
-
         <Input
           id="title"
           element="input"
@@ -134,7 +137,6 @@ const CreateProduct = () => {
           errorText="Unesite odgovarajucu vrednost"
           onInput={inputHandler}
         />
-
         <Button type="submit">Kreiraj</Button>
       </form>
     </div>

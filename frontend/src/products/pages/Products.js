@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import ProductList from "../components/ProductList";
@@ -7,11 +7,16 @@ import Loader from "../../shared/components/UIelements/Loader";
 import Button from "../../shared/components/Form/Button";
 
 const Products = () => {
+  // Get http methods from custom http hook
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // Store products in state
   const [loadedProducts, setLoadedProducts] = useState([]);
+  // Handle products error state, when change category
   const [prodError, setProdError] = useState(false);
+  // Categories
   const categoryButtons = ["Trenerke", "Jakne", "Duksevi"];
 
+  // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,6 +30,7 @@ const Products = () => {
     fetchProducts();
   }, []);
 
+  // Fetch products by category
   const fetchProducts = async (category) => {
     try {
       const responseData = await sendRequest(
@@ -46,11 +52,13 @@ const Products = () => {
     } catch (err) {}
   };
 
+  // Category function
   const findByCategory = (event, category) => {
     event.preventDefault();
     fetchProducts(category);
   };
 
+  // Category error removed
   const productError = () => {
     setProdError(false);
   };
@@ -61,6 +69,8 @@ const Products = () => {
         <h1>AMBI SHOP</h1>
         <p>NASI PROIZVODI</p>
       </div>
+
+      {/* Sidebar for categories */}
       <div className="actions">
         {categoryButtons.map((button) => (
           <Button onClick={(event) => findByCategory(event, button)}>
@@ -69,6 +79,7 @@ const Products = () => {
         ))}
       </div>
 
+      {/* Div for handling error, loading and Products */}
       <div>
         <ErrorModal
           show={prodError}

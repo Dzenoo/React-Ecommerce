@@ -15,11 +15,15 @@ import ErrorModal from "../../shared/components/UIelements/ErrorModal";
 
 const UpdateProduct = (props) => {
   const navigate = useNavigate();
-  const auth = useContext(AuthContext);
+  // Get http methods from custom http hook
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // Get auth status from context
+  const auth = useContext(AuthContext);
+  // Get loaded product
   const [loadedProduct, setLoadedProduct] = useState();
+  // Get product by Id
   const productId = useParams().productId;
-
+  // Get form handling functions from custom form hook
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: {
@@ -50,6 +54,7 @@ const UpdateProduct = (props) => {
     false
   );
 
+  // Get product by Id, and update
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -91,6 +96,7 @@ const UpdateProduct = (props) => {
     fetchProducts();
   }, [sendRequest, productId, setFormData]);
 
+  // Function for send request to update product
   const productUpdateHandler = async (event) => {
     event.preventDefault();
     try {
@@ -113,6 +119,7 @@ const UpdateProduct = (props) => {
     navigate("/admin");
   };
 
+  // If loading is true, show loader
   if (isLoading) {
     return (
       <div className="center">
@@ -121,6 +128,7 @@ const UpdateProduct = (props) => {
     );
   }
 
+  // If products isn't found
   if (!loadedProduct && !error) {
     return (
       <div className="center">
@@ -170,7 +178,6 @@ const UpdateProduct = (props) => {
             initialValue={loadedProduct.price}
             initialValid={true}
           />
-
           <Input
             id="category"
             element="input"
@@ -183,7 +190,6 @@ const UpdateProduct = (props) => {
             initialValue={loadedProduct.category}
             initialValid={true}
           />
-
           <Input
             id="inStock"
             element="input"
@@ -196,7 +202,6 @@ const UpdateProduct = (props) => {
             initialValue={loadedProduct.inStock}
             initialValid={true}
           />
-
           <Button type="submit" disabled={!formState.isValid}>
             Izmeni
           </Button>

@@ -72,7 +72,6 @@ const ProductDetails = (props) => {
       <div className="product_details_image">
         <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       </div>
-
       <div className="product_details_content">
         <div className="content_top">
           <span>{category}</span>
@@ -89,13 +88,11 @@ const ProductDetails = (props) => {
             ))}
           </select>
           <h1>{option}</h1>
-
           {isAllowedToBuy && (
             <Button to={!isLoggedIn && "/authenticate"} onClick={addToCart}>
               Dodaj u korpu
             </Button>
           )}
-
           <Button
             inverse
             to={!isLoggedIn && "/authenticate"}
@@ -114,7 +111,6 @@ const ProductDetails = (props) => {
               isporuku kupovine za sve narudžbe iznad 6000 Din.
             </p>
           </details>
-
           <details>
             <summary>Vreme dostave</summary>
             <p>

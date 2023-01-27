@@ -7,10 +7,14 @@ import Loader from "../../shared/components/UIelements/Loader";
 import ProductDetails from "../components/ProductDetails";
 
 const ProductsDetail = () => {
+  // Get http methods from custom http hook
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // Store product in state
   const [loadedProduct, setLoadedProduct] = useState([]);
+  // Get product by id from params
   const productId = useParams().pid;
 
+  // Fetch product by id
   useEffect(() => {
     const fetchProducts = async () => {
       try {

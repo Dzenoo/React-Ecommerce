@@ -5,6 +5,7 @@ import "./ProductItem.css";
 
 // Product card
 const ProductItem = (props) => {
+  // Get product properties
   const { id, image, title, price, category } = props;
 
   return (
@@ -12,17 +13,14 @@ const ProductItem = (props) => {
       <div className="item__image">
         <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       </div>
-
       <div className="item__text">
         <p>{category}</p>
         <h1>{title}</h1>
       </div>
-
       <div className="item__footer">
         <span>
           <p>{price} DIN</p>
         </span>
-
         <Button to={`/products/${id}`}>Vidi vise</Button>
       </div>
     </li>
