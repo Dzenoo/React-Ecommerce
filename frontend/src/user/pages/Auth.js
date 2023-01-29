@@ -137,13 +137,13 @@ const Auth = () => {
             onInput={inputHandler}
           />
 
-          <div style={{ display: "flex", gap: "1em", alignItems: "center" }}>
+          <div style={{ displayc: "flex", gap: "1em", alignItems: "center" }}>
             <Button type="submit" disabled={!formState.isValid}>
               {authMod ? "Prijavi se" : "Registruj se "}
             </Button>
-            <a className="switchbtn" onClick={switchMode}>
+            <span className="switchbtn" onClick={switchMode}>
               {authMod ? "Registruj se" : "Prijavi se"}
-            </a>
+            </span>
           </div>
         </form>
       </Card>

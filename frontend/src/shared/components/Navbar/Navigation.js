@@ -28,7 +28,7 @@ const Navigation = (props) => {
       </button>
 
       <Link to="/">
-        <img src={logo} />
+        <img src={logo} alt="logo" />
       </Link>
 
       <div className="nav">
@@ -38,7 +38,7 @@ const Navigation = (props) => {
       {/* Responsive Navigation */}
       {navIsOpen && <Backdrop onClick={closeNav} />}
       <ResponsiveNav show={navIsOpen} onClick={closeNav}>
-        <img src={logo} />
+        <img src={logo} alt="logo" />
         <NavLinks name={props.name} />
       </ResponsiveNav>
     </div>

@@ -137,7 +137,9 @@ const CreateProduct = () => {
           errorText="Unesite odgovarajucu vrednost"
           onInput={inputHandler}
         />
-        <Button type="submit">Kreiraj</Button>
+        <Button type="submit" disabled={formIsValid}>
+          Kreiraj
+        </Button>
       </form>
     </div>
   );

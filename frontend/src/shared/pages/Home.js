@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHttpClient } from "../hooks/http-hook";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AuthContext } from "../context/auth-context";
@@ -48,21 +48,21 @@ const Home = () => {
         </div>
 
         <div className="products_cart">
-          <img src={sweater} />
+          <img src={sweater} alt="homeImg" />
         </div>
       </div>
 
       <div className="after_hero animation">
         <div className="item">
-          <img src={image} />
+          <img src={image} alt="icon1" />
           <h1>Online naručivanje</h1>
         </div>
         <div className="item">
-          <img src={imagee} />
+          <img src={imagee} alt="icon2" />
           <h1>Uspesna kupovina</h1>
         </div>
         <div className="item">
-          <img src={imag} />
+          <img src={imag} alt="icon3" />
           <h1>Podrška na mreži</h1>
         </div>
       </div>
@@ -73,7 +73,10 @@ const Home = () => {
         <div className="productList">
           {someProd.map((item) => (
             <div key={item._id} className="productItem">
-              <img src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`} />
+              <img
+                src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`}
+                alt={item.title}
+              />
               <h1>{item.title}</h1>
               <p>{item.price} DIN</p>
               <Link to={auth.isLoggedIn ? "/products" : "/authenticate"}>

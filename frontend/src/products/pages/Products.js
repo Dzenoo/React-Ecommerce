@@ -28,7 +28,7 @@ const Products = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [sendRequest]);
 
   // Fetch products by category
   const fetchProducts = async (category) => {

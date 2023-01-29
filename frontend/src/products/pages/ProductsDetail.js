@@ -26,7 +26,7 @@ const ProductsDetail = () => {
     };
 
     fetchProducts();
-  }, [sendRequest]);
+  }, [sendRequest, productId]);
 
   return (
     <>
