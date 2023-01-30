@@ -17,6 +17,7 @@ import ImageUpload from "../../shared/components/Form/ImageUpload";
 const CreateProduct = () => {
   const navigate = useNavigate();
   // Get auth status from context
+  
   const auth = useContext(AuthContext);
   // Get http methods from custom http hook
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
