@@ -7,7 +7,6 @@ import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validate";
-
 import Button from "../../shared/components/Form/Button";
 import Input from "../../shared/components/Form/Input";
 import ErrorModal from "../../shared/components/UIelements/ErrorModal";
