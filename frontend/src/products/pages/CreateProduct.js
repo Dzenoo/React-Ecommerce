@@ -3,10 +3,7 @@ import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../shared/context/auth-context";
-import {
-  VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH,
-} from "../../shared/util/validate";
+import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from "../../shared/util/validate";
 import Button from "../../shared/components/Form/Button";
 import Input from "../../shared/components/Form/Input";
 import ErrorModal from "../../shared/components/UIelements/ErrorModal";
