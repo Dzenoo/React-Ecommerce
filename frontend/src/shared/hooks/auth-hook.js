@@ -7,27 +7,22 @@ export const useAuth = () => {
   const [tokenExpirationDate, settokenExpirationDate] = useState();
   const [userId, setUserId] = useState(false);
 
-  const login = useCallback(
-    (uid, token, expirationDate) => {
-      setToken(token);
-      setUserId(uid);
-//       const tokenData = JSON.parse(atob(token.split(".")[1]));
-//       setUser({ isAdmin: tokenData.isAdmin });
+  const login = useCallback((uid, token, expirationDate) => {
+    setToken(token);
+    setUserId(uid);
 
-      const tokenExpirationDate =
-        expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-      settokenExpirationDate(tokenExpirationDate);
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          userId: uid,
-          token: token,
-          expiration: tokenExpirationDate.toISOString(),
-        })
-      );
-    },
-    [user]
-  );
+    const tokenExpirationDate =
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    settokenExpirationDate(tokenExpirationDate);
+    localStorage.setItem(
+      "userData",
+      JSON.stringify({
+        userId: uid,
+        token: token,
+        expiration: tokenExpirationDate.toISOString(),
+      })
+    );
+  }, []);
 
   const logout = useCallback(() => {
     setToken(null);

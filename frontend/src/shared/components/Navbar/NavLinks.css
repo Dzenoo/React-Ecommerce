@@ -2,7 +2,7 @@
   list-style: none;
   display: flex;
   gap: 2rem;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-around;
 }
 .menu li {
@@ -35,7 +35,8 @@
 
 .bar {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
+  justify-content: center;
   cursor: pointer;
 }
 

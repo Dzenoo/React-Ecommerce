@@ -1,108 +1,99 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useHttpClient } from "../hooks/http-hook";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { AuthContext } from "../context/auth-context";
 import { Link } from "react-router-dom";
-
-import "./Home.css";
-import Button from "../components/Form/Button";
-import image from "../assets/ft.png";
-import imagee from "../assets/fte.png";
-import imag from "../assets/ftt.png";
 import Footer from "../components/Footer/Footer";
-import sweater from "../assets/zmp.png";
+import image from "../../shared/assets/ico.png";
+import imagee from "../../shared/assets/icon.png";
+import imag from "../../shared/assets/icoo.png";
+import img1 from "../../shared/assets/1.png";
+import img3 from "../../shared/assets/2.png";
+import img2 from "../../shared/assets/3.png";
+import hero_img from "../../shared/assets/hero_image.png";
+import "./Home.css";
+import { useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
 
 const Home = () => {
-  const { sendRequest } = useHttpClient();
-  const [products, setproducts] = useState([]);
-  const auth = useContext(AuthContext);
-
-  useEffect(() => {
-    const fetchProd = async () => {
-      const res = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/products`
-      );
-      setproducts(res.products);
-    };
-    fetchProd();
-  }, [sendRequest]);
-
-  let someProd = products.slice(0, 3);
+  const authCtx = useContext(AuthContext);
 
   return (
     <>
       <div className="mainpage">
-        <div className="text">
-          <h1>
-            Super povoljne ponude <br />
-            <span className="ch"> Za sve proizvode</span>
-          </h1>
-          <p>
-            Ovdje ćete pronaći širok izbor visokokvalitetnih proizvoda po
-            pristupačnim cijenama. Naš tim je posvećen pružanju odlične usluge
-            kupcima i osiguravanju da imate besprijekorno iskustvo kupovine.
-            Nudimo brzu i pouzdanu dostavu, jednostavan povrat i siguran proces
-            naplate.
-          </p>
-          <Link to="/products">Kupi sada</Link>
+        <div className="mainpage_sidebar">
+          <div className="sidebar_list">
+            <div className="line_div">
+              <hr />
+              <p>Ponuda</p>
+            </div>
+            <div className="item_sidebar">
+              <img src={img2} alt="img2" />
+            </div>
+            <div className="item_sidebar">
+              <img src={img1} alt="img1" />
+            </div>
+            <div className="item_sidebar">
+              <img src={img3} alt="img3" />
+            </div>
+            <div className="line_div">
+              <hr />
+            </div>
+          </div>
         </div>
-
-        <div className="products_cart">
-          <img src={sweater} alt="homeImg" />
+        <div className="mainpage_hero">
+          <div className="text">
+            <h3>Pronađite svoju savršenu već danas</h3>
+            <h1> Super povoljne ponude za sve proizvode</h1>
+            <p>
+              Ovdje ćete pronaći širok izbor visokokvalitetnih proizvoda po
+              pristupačnim cijenama. Naš tim je posvećen pružanju odlične usluge
+              kupcima i osiguravanju da imate besprijekorno iskustvo kupovine.
+              Nudimo brzu i pouzdanu dostavu, jednostavan povrat i siguran
+              proces naplate.
+            </p>
+            <div className="actions_hero">
+              <Link className="btn1" to="/products">
+                Kupi Sada
+              </Link>
+              <Link className="btn2" to="/authenticate">
+                Prijavi Se
+              </Link>
+            </div>
+            <hr />
+          </div>
+          <div className="hero_image">
+            <img src={hero_img} alt="heroimg" />
+          </div>
         </div>
       </div>
-
-      <div className="after_hero animation">
-        <div className="item">
+      <div className="after_hero">
+        <div className="itemIcon">
           <img src={image} alt="icon1" />
           <h1>Online naručivanje</h1>
         </div>
-        <div className="item">
+        <div className="itemIcon">
           <img src={imagee} alt="icon2" />
           <h1>Uspesna kupovina</h1>
         </div>
-        <div className="item">
+        <div className="itemIcon">
           <img src={imag} alt="icon3" />
           <h1>Podrška na mreži</h1>
         </div>
       </div>
 
-      <div className="productSection">
-        <h1>Najnoviji Proizvodi</h1>
-        <p>Zimska kolekcija</p>
-        <div className="productList">
-          {someProd.map((item) => (
-            <div key={item._id} className="productItem">
-              <img
-                src={`${process.env.REACT_APP_ASSETS_URL}/${item.image}`}
-                alt={item.title}
-              />
-              <h1>{item.title}</h1>
-              <p>{item.price} DIN</p>
-              <Link to={auth.isLoggedIn ? "/products" : "/authenticate"}>
-                <AiOutlineShoppingCart size={30} />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
+      {!authCtx.isLoggedIn && (
+        <div className="newsletter">
+          <div>
+            <h1>Registruj se</h1>
+            <p>
+              Ne zaboravite kreirati račun za pristup korpi,
+              <br />
+              spremanju porudzbina i korištenje posebnih popusta.
+            </p>
+          </div>
 
-      <div className="ads"></div>
-
-      <div className="newsletter">
-        <div>
-          <h1>Registruj se</h1>
-          <p>
-            Ne zaboravite kreirati račun za pristup korpi,
-            <br />
-            spremanju porudzbina i korištenje posebnih popusta.
-          </p>
+          <div>
+            <Link to="/authenticate">Registruj se</Link>
+          </div>
         </div>
-
-        <div>
-          <Button to="/authenticate">Registruj se</Button>
-        </div>
-      </div>
+      )}
 
       <Footer />
     </>

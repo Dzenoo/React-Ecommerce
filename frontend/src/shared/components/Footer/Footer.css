@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   overflow: hidden;
   padding: 40px;
-  background-color: #222222;
+  background-color: #263136;
 }
 
 .footer_list h3 {
@@ -44,10 +44,22 @@
 
 .footer_list .footer_img {
   max-width: 800px;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .footer_list .footer_img p {
   color: #fff;
   line-height: 36px;
+}
+
+.footer_list .footer_item .icons {
+  display: flex;
+  gap: 1em;
+}
+
+.icons a {
+  background-color: #0ce2c0;
+  color: #263136;
+  padding: 10px;
+  font-size: 20px;
 }

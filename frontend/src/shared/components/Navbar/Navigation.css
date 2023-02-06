@@ -1,13 +1,14 @@
 .main_navigation {
-  background-color: #fff;
+  background-color: #e3e7e7;
   padding: 0 1rem;
   display: flex;
   align-items: center;
-  height: 9vh;
+  height: 8vh;
   z-index: 60;
   justify-content: space-between;
   position: sticky;
   top: 0;
+  box-shadow: 0 2px 4px #333;
 }
 
 .main_navigation .btn {

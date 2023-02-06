@@ -21,50 +21,52 @@ const NavLinks = (props) => {
   };
 
   return (
-      <ul className="menu">
-        {/* Always Reachable */}
-        <li>
-          <NavLink to="/">Pocetna</NavLink>
+    <ul className="menu">
+      {/* to="/authenticate" */}
+      {/* {!isLoggedIn && (
+        <Link inverse to="/authenticate">
+          Prijavi se
+        </Link>
+      )} */}
+
+      {/* Always Reachable */}
+      <li>
+        <NavLink to="/">Početna</NavLink>
+      </li>
+
+      <li>
+        <NavLink to="/products">Kupi</NavLink>
+      </li>
+
+      {/* Authenticated */}
+      {isLoggedIn && (
+        <li className="bar">
+          <NavLink to="/cart" style={{ textDecoration: "none" }}>
+            Korpa
+            <AiOutlineShoppingCart />
+          </NavLink>
+          <span>{totalQty}</span>
         </li>
+      )}
 
-        <li>
-          <NavLink to="/products">Artikli</NavLink>
+      {isLoggedIn && (
+        <li className="bar">
+          <Link
+            to={`/${auth.userId}/favorites`}
+            style={{ textDecoration: "none" }}
+          >
+            Lista želja
+            <AiOutlineHeart />
+          </Link>
         </li>
+      )}
 
-        {/* Authenticated */}
-        {isLoggedIn && (
-          <li className="bar">
-            <NavLink to="/cart" style={{ textDecoration: "none" }}>
-              <AiOutlineShoppingCart />
-            </NavLink>
-            <span>{totalQty}</span>
-          </li>
-        )}
-
-        {isLoggedIn && (
-          <li className="bar">
-            <Link
-              to={`/${auth.userId}/favorites`}
-              style={{ textDecoration: "none" }}
-            >
-              <AiOutlineHeart />
-            </Link>
-          </li>
-        )}
-
-        {isLoggedIn && (
-          <Button inverse onClick={logout}>
-            Izloguj se
-          </Button>
-        )}
-
-        {/* to="/authenticate" */}
-        {!isLoggedIn && (
-          <Button inverse to="/authenticate">
-            Uloguj se
-          </Button>
-        )}
-      </ul>
+      {isLoggedIn && (
+        <Button inverse onClick={logout}>
+          Izloguj se
+        </Button>
+      )}
+    </ul>
   );
 };
 

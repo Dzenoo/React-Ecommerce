@@ -1,7 +1,9 @@
 import React from "react";
 
+import { AiOutlineMail } from "react-icons/ai";
+import { AiOutlineInstagram } from "react-icons/ai";
+
 import "./Footer.css";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -19,13 +21,24 @@ const Footer = () => {
             ažurni. Ne snosimo odgovornost za eventualne greške ili propuste u
             opisima proizvoda
           </p>
+          {/* <p style={{ textAlign: "center", fontSize: "1.6rem" }}>
+            Copyright Ambi &copy; 2022
+          </p> */}
         </div>
 
         <div className="footer_item ">
           <h1 style={{ color: "#fff" }}>Kupovina</h1>
-          <Link>Uslovi koriscenja</Link>
           <p> Telefon: +381 063 063 063</p>
           <p>Zapratite nas</p>
+
+          <div className="icons">
+            <a href="">
+              <AiOutlineMail />
+            </a>
+            <a href="">
+              <AiOutlineInstagram />
+            </a>
+          </div>
         </div>
 
         <div className="footer_item ">
@@ -35,10 +48,6 @@ const Footer = () => {
           <p>Zapratite nas</p>
         </div>
       </div>
-
-      <p style={{ textAlign: "center", fontSize: "1.6rem" }}>
-        Copyright Ambi &copy; 2022
-      </p>
     </>
   );
 };
