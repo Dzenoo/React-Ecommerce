@@ -1,20 +1,18 @@
 .item {
   max-width: 300px;
   margin: 0;
-  border-radius: 5px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   word-break: break-word;
   background-color: #fff;
-  border-radius: 12px;
   padding: 2em;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px #fff;
 }
 
 .item:hover {
-  box-shadow: 2px 2px 10px rgb(119, 119, 119);
-  transition: 0.4s;
+  transition: all 0.7s ease;
+  transform: translateY(-10px);
 }
 
 .item .item__image img {
@@ -28,9 +26,9 @@
 }
 
 .item .item__text p {
-  color: #339b73;
+  color: #333;
   font-weight: bold;
-  font-style: italic;
+  text-align: center;
 }
 
 .item .item__footer {

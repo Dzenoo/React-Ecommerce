@@ -6,7 +6,7 @@ import "./ProductItem.css";
 // Product card
 const ProductItem = (props) => {
   // Get product properties
-  const { id, image, title, price, category } = props;
+  const { id, image, title, price } = props;
 
   return (
     <li className="item">
@@ -14,7 +14,6 @@ const ProductItem = (props) => {
         <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       </div>
       <div className="item__text">
-        <p>{category}</p>
         <h1>{title}</h1>
       </div>
       <div className="item__footer">
