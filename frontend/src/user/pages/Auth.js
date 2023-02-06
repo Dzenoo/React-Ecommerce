@@ -67,7 +67,6 @@ const Auth = () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}/users/login`,
-
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -101,7 +100,7 @@ const Auth = () => {
 
   return (
     <div className="form_div">
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal show={error} onClear={clearError} />
       <Card className="form_card">
         {isLoading && <Loader asOverlay />}
         <h2>{authMod ? "Prijavi se" : "Registruj se "}</h2>
