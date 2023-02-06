@@ -1,8 +1,9 @@
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #1a1719;
   /* background: linear-gradient(
     to top right,
     rgb(229, 244, 244),
@@ -47,16 +48,6 @@ code {
   align-items: center;
 }
 
-.create_form {
-  margin: 0 auto;
-  max-width: 600px;
-  background-color: #fff;
-  padding: 30px;
-  overflow: hidden;
-  border-radius: 12px;
-  margin-top: 2rem;
-}
-
 .btns {
   display: flex;
   gap: 2rem;
@@ -78,33 +69,49 @@ code {
   margin: 2rem;
 }
 
-.prod_banner {
-  background-image: linear-gradient(#54545cb3, #0f0f0f96),
-    url("./shared/assets/AMB.png");
-  background-size: cover;
-  width: 100%;
-  height: 44rem;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-size: 3rem;
-  color: #fff;
+.products_container {
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
 }
 
-.products_wrapper {
+.products_container .filters {
+  background-color: #fff;
+  padding: 20px;
+  gap: 20px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  gap: 2rem;
-  overflow: hidden;
-  flex-wrap: wrap;
+  align-items: center;
+  box-shadow: 0 2px 4px #0ce2c0;
 }
 
-.products_wrapper .actions {
+.products_container .filters .category {
   display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.products_container .filters .category button {
+  background-color: #141213;
+  border: none;
+  padding: 16px 60px;
+  color: #fff !important;
+  font-size: 18px;
+  cursor: pointer;
+}
+.products_container .filters .category button:hover {
+  transition: 0.3s;
+  box-shadow: 0 3px 6px #333;
+}
+.products_container .filters .sort button {
+  background-color: #141213;
+  border: none;
+  padding: 16px 60px;
+  color: #fff !important;
+  font-size: 18px;
+  cursor: pointer;
+}
+.products_container .filters .sort button:hover {
+  transition: 0.3s;
+  box-shadow: 0 3px 6px #333;
 }

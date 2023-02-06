@@ -86,7 +86,7 @@ const Checkout = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Placanje</h1>
+      <h1 style={{ textAlign: "center", color: "#fff" }}>Porudzbina</h1>
       <ToastContainer />
       <div className="checkout_section">
         {/* Http handling loading and possible errors */}

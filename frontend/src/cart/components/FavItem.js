@@ -20,14 +20,12 @@ const FavItem = (props) => {
       <div className="item__image">
         <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
       </div>
-
       <div className="fav_item_description">
         <div>
           <h1>{title}</h1>
           <p style={{ fontWeight: "bold" }}>Cena: {price}</p>
           <p style={{ fontWeight: "bold" }}>Na stanju: {inStock}</p>
         </div>
-
         <div>
           <button onClick={removeFromFavorites}>x</button>
         </div>

@@ -1,5 +1,5 @@
 .cart_item {
-  box-shadow: 9px 0 9px 0 rgb(171, 171, 171);
+  box-shadow: 0 2px 4px #0ce2c0;
   position: relative;
   display: flex;
   background-color: #fff;
@@ -8,6 +8,7 @@
   max-width: 800px;
   border-radius: 20px;
   flex-wrap: wrap;
+  padding: 20px;
 }
 
 .cart_item img {

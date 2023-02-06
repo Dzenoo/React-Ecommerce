@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 import Button from "../../shared/components/Form/Button";
 import Card from "../../shared/components/UIelements/Card";
+import Footer from "../../shared/components/Footer/Footer";
 import CartItem from "../components/CartItem";
 
 import "./CartPage.css";
@@ -13,7 +14,7 @@ const CartPage = () => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Korpa</h1>
+      <h1 style={{ textAlign: "center", color: "#fff" }}>Korpa</h1>
       <div className="cart_container animation">
         {/* If cart is empty */}
         {cartItems.length === 0 && (
@@ -47,6 +48,7 @@ const CartPage = () => {
           </Button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

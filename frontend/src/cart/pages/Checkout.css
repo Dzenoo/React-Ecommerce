@@ -16,7 +16,7 @@ h2 {
 .checkout_section .checkout_form {
   background-color: #fff;
   padding: 30px;
-  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.189);
+  box-shadow: 0 2px 10px #0ce2c0;
   border-radius: 12px;
   width: 600px;
 }
@@ -35,7 +35,7 @@ h2 {
   border-radius: 12px;
   border: 1px solid rgb(253, 253, 253);
   flex-direction: column;
-  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.189);
+  box-shadow: 2px 2px 20px rgba(21, 243, 198, 0.189);
 }
 
 .checkout_cart h1 {
