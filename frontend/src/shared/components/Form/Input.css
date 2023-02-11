@@ -25,6 +25,8 @@ textarea {
   background: #f8f8f8;
   padding: 1.12rem 0.25rem;
   border-radius: 6px;
+  border-radius: 10px;
+  border: 1px solid hsl(231, 11%, 63%);
 }
 
 .form-control input:focus,

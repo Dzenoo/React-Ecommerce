@@ -19,8 +19,9 @@
 }
 
 .button--action {
-  background: #0ce2c0 !important;
-  color: #ffff !important;
+  background: transparent;
+  border: 1.2px solid #0ce2c0 !important;
+  color: #fff !important;
 }
 
 .button--action:hover,
@@ -32,7 +33,7 @@
 .button--inverse {
   background: transparent;
   border: 1.2px solid #0ce2c0 !important;
-  color: #fff !important;
+  color: #333 !important;
 }
 
 .button--inverse:hover,
@@ -64,7 +65,7 @@
 
 @media (max-width: 425px) {
   .button {
-    font-size: 12px;
+    font-size: 19px;
     font-weight: bold;
   }
 }

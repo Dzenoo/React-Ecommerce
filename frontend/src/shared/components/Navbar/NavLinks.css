@@ -16,6 +16,12 @@
   font-size: 20px;
 }
 
+.menu li a:hover {
+  border-bottom: 3.4px solid #0ce2c0;
+  padding-bottom: 12px;
+  transition: 0.4s;
+}
+
 .menu_links {
   display: flex;
   gap: 2em;
