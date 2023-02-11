@@ -104,6 +104,11 @@ const Auth = () => {
       <Card className="form_card">
         {isLoading && <Loader asOverlay />}
         <h2>{authMod ? "Prijavi se" : "Registruj se "}</h2>
+        <p>
+          {authMod
+            ? "Unesite e-mail i lozinku"
+            : "Unesite e-mail, lozinku i ime"}
+        </p>
         <hr />
         <form className="auth_form" onSubmit={AuthSubmitHandler}>
           {!authMod && (

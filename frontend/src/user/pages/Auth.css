@@ -1,6 +1,7 @@
 .form_card {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 100px;
+  box-shadow: 0 2px 6px #fff;
 }
 
 .form_div {
