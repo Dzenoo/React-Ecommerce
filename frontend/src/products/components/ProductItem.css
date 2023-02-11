@@ -7,6 +7,7 @@
   word-break: break-word;
   background-color: #fff;
   padding: 2em;
+  animation: ctg 1s linear;
   box-shadow: 0 2px 2px #fff;
 }
 

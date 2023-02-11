@@ -94,9 +94,9 @@ const ProductDetails = (props) => {
   return (
     <>
       <div className="product_details_container">
-        <div className="column_first">
+        <div className="column_first slide_column_f">
           <h2>Proizvodi / {category}</h2>
-          <p>{isInStock}</p>
+          {isInStock}
           <p>{description}</p>
           <hr />
           <div className="flex_div">
@@ -113,14 +113,14 @@ const ProductDetails = (props) => {
             </Button>
           )}
           <Button
-            inverse
+            action
             to={!isLoggedIn && "/authenticate"}
             onClick={sendToBackend}
           >
             Dodaj u listu zelja
           </Button>
         </div>
-        <div className="column_second">
+        <div className="column_second slide_column_t">
           <img
             src={`${process.env.REACT_APP_ASSETS_URL}/${image}`}
             alt={title}
@@ -128,7 +128,7 @@ const ProductDetails = (props) => {
           <h1>{title}</h1>
           <p>{price} DIN</p>
         </div>
-        <div className="column_third">
+        <div className="column_third slide_column_f">
           <details>
             <summary>Besplatna dostava</summary>
             <p>

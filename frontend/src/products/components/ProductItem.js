@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Button from "../../shared/components/Form/Button";
 import "./ProductItem.css";
@@ -11,7 +12,12 @@ const ProductItem = (props) => {
   return (
     <li className="item">
       <div className="item__image">
-        <img src={`${process.env.REACT_APP_ASSETS_URL}/${image}`} alt={title} />
+        <Link to={`/products/${id}`}>
+          <img
+            src={`${process.env.REACT_APP_ASSETS_URL}/${image}`}
+            alt={title}
+          />
+        </Link>
       </div>
       <div className="item__text">
         <h1>{title}</h1>
@@ -20,7 +26,6 @@ const ProductItem = (props) => {
         <span>
           <p>{price} DIN</p>
         </span>
-        <Button to={`/products/${id}`}>Vidi vise</Button>
       </div>
     </li>
   );
