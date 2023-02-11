@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
 import Footer from "../components/Footer/Footer";
 import image from "../../shared/assets/ico.png";
 import imagee from "../../shared/assets/icon.png";
@@ -6,10 +8,8 @@ import imag from "../../shared/assets/icoo.png";
 import img1 from "../../shared/assets/1.png";
 import img3 from "../../shared/assets/2.png";
 import img2 from "../../shared/assets/3.png";
-import hero_img from "../../shared/assets/hero_image.png";
+import hero_img from "../../shared/assets/sli.png";
 import "./Home.css";
-import { useContext } from "react";
-import { AuthContext } from "../../shared/context/auth-context";
 
 const Home = () => {
   const authCtx = useContext(AuthContext);
@@ -23,13 +23,13 @@ const Home = () => {
               <hr />
               <p>Ponuda</p>
             </div>
-            <div className="item_sidebar">
+            <div className="item_sidebar iteO">
               <img src={img2} alt="img2" />
             </div>
-            <div className="item_sidebar">
+            <div className="item_sidebar iteT">
               <img src={img1} alt="img1" />
             </div>
-            <div className="item_sidebar">
+            <div className="item_sidebar iteW">
               <img src={img3} alt="img3" />
             </div>
             <div className="line_div">
@@ -38,7 +38,7 @@ const Home = () => {
           </div>
         </div>
         <div className="mainpage_hero">
-          <div className="text">
+          <div className="text animationText">
             <h3>Pronađite svoju savršenu već danas</h3>
             <h1> Super povoljne ponude za sve proizvode</h1>
             <p>
@@ -52,14 +52,16 @@ const Home = () => {
               <Link className="btn1" to="/products">
                 Kupi Sada
               </Link>
-              <Link className="btn2" to="/authenticate">
-                Prijavi Se
-              </Link>
+              {!authCtx.isLoggedIn && (
+                <Link className="btn2" to="/authenticate">
+                  Prijavi Se
+                </Link>
+              )}
             </div>
             <hr />
           </div>
-          <div className="hero_image">
-            <img src={hero_img} alt="heroimg" />
+          <div className="hero_imag">
+            <img src={hero_img} alt="heroimg" className="animationImg" />
           </div>
         </div>
       </div>

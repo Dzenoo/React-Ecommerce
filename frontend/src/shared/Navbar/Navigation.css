@@ -1,0 +1,38 @@
+.main_navigation {
+  background-color: #e3e7e7;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  height: 8vh;
+  z-index: 60;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 4px #333;
+}
+
+.main_navigation .btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 3rem;
+  display: none;
+  overflow: hidden;
+}
+
+.main_navigation img {
+  width: 200px;
+}
+
+@media (max-width: 1024px) {
+  .main_navigation .btn {
+    display: block;
+  }
+
+  .main_navigation img {
+    display: none;
+  }
+  .nav {
+    display: none;
+  }
+}

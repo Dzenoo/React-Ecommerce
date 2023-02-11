@@ -39,6 +39,62 @@
   width: 100%;
 }
 
+.iteO {
+  animation: showImgs 1.4s linear;
+}
+
+.iteT {
+  animation: showImgs 1.2s linear;
+}
+
+.iteW {
+  animation: showImgs 0.9s linear;
+}
+
+.animationText {
+  animation: showText 0.8s linear;
+}
+
+.animationImg {
+  animation: showImg 0.6s linear;
+}
+
+@keyframes showImg {
+  0% {
+    transform: translateX(130px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 2;
+  }
+}
+
+@keyframes showText {
+  0% {
+    transform: translateY(130px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 2;
+  }
+}
+
+@keyframes showImgs {
+  0% {
+    transform: translateX(130px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 2;
+  }
+}
+
 .mainpage_sidebar .sidebar_list .item_sidebar img {
   width: 100%;
   height: auto;
@@ -105,27 +161,6 @@
   height: auto;
 }
 
-@media (max-width: 1280px) {
-  .mainpage_hero {
-    grid-template-columns: repeat(1, 1fr);
-    padding: 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .mainpage {
-    flex-direction: column;
-  }
-
-  .mainpage_sidebar .sidebar_list {
-    flex-direction: row;
-  }
-
-  .mainpage_sidebar {
-    max-width: 1000px;
-  }
-}
-
 .after_hero {
   display: flex;
   justify-content: center;
@@ -172,4 +207,67 @@
 .newsletter a:hover {
   transition: 0.3s;
   box-shadow: 0 3px 6px #0ce2c0;
+}
+
+@media (max-width: 425px) {
+  .mainpage_hero .text {
+    padding: 0px;
+    max-width: 300px;
+  }
+
+  .actions_hero .btn1,
+  .actions_hero .btn2 {
+    padding: 16px;
+  }
+
+  .animationImg {
+    width: 100%;
+  }
+
+  .newsletter a {
+    padding: 16px !important;
+  }
+}
+
+@media (max-width: 1280px) {
+  .mainpage_hero {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainpage {
+    flex-direction: column;
+  }
+
+  .mainpage_sidebar .sidebar_list {
+    padding: 60px;
+  }
+
+  .mainpage_sidebar {
+    max-width: 1000px;
+  }
+
+  .mainpage_hero {
+    gap: 2em;
+  }
+
+  .mainpage {
+    gap: 0;
+  }
+
+  .mainpage_sidebar .sidebar_list .line_div {
+    padding: 0;
+  }
+
+  .newsletter {
+    padding: 60px !important;
+    flex-wrap: wrap;
+    gap: 4em;
+  }
+
+  .after_hero {
+    padding: 30px !important;
+  }
 }
